@@ -3,481 +3,974 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Антикорупція: Виклики та Рішення</title>
+    <title>Антикорупція: виклики та рішення</title>
     <!-- Підключення Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Підключення шрифту Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
     
     <style>
-        /* Базовий стиль для шрифту */
+        /* --- ГЛОБАЛЬНІ СТИЛІ --- */
+        :root {
+            --bg-dark: #050505;
+            --accent-blue: #3b82f6;
+            --accent-glow: rgba(59, 130, 246, 0.5);
+            --text-primary: #e5e7eb;
+            --glass-bg: rgba(20, 20, 25, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
         body {
             font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(16, 26, 46, 0.4) 0%, transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(26, 16, 16, 0.2) 0%, transparent 25%);
         }
-        /* Кастомні стилі для скролбару (темна тема) */
-        ::-webkit-scrollbar {
-            width: 8px;
+
+        /* --- АНІМОВАНИЙ ФОН --- */
+        .spotlight {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            background: radial-gradient(600px circle at var(--x) var(--y), rgba(29, 78, 216, 0.15), transparent 40%);
+            transition: opacity 0.5s ease;
         }
-        ::-webkit-scrollbar-track {
-            background: #2D3748; /* dark-grey */
+
+        .ambient-light {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
+            z-index: -2;
+            animation: float 20s infinite ease-in-out;
         }
-        ::-webkit-scrollbar-thumb {
-            background: #4A5568; /* mid-grey */
-            border-radius: 4px;
+        .light-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: #1e3a8a; animation-delay: 0s; }
+        .light-2 { bottom: -10%; right: -10%; width: 40vw; height: 40vw; background: #312e81; animation-delay: -10s; }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
         }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #718096; /* light-grey */
+
+        /* --- СКЛЯНИЙ ЕФЕКТ --- */
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        /* --- ТИПОГРАФІКА --- */
+        h1, h2, h3, h4 { letter-spacing: -0.02em; }
+        p { line-height: 1.8; letter-spacing: 0.01em; }
+
+        /* Скролбар */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0a0a0a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #475569; }
+
+        /* Анімації */
+        .fade-in { animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(20px); }
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Ефекти кнопок */
+        .nav-btn {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .nav-btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.05), transparent);
+            transform: translateX(-100%);
+            transition: 0.5s;
+        }
+        .nav-btn:hover::before { transform: translateX(100%); }
+        .nav-btn:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+            border-color: rgba(59, 130, 246, 0.6);
+        }
+        
+        /* Квадратна кнопка */
+        .square-btn {
+            aspect-ratio: 1 / 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        /* Timeline styles */
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -9px;
+            top: 6px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #3b82f6;
+            border: 4px solid #111827;
+            box-shadow: 0 0 10px #3b82f6;
         }
     </style>
 </head>
-<body class="bg-gray-900 text-gray-200 min-h-screen">
+<body class="min-h-screen flex flex-col selection:bg-blue-500 selection:text-white">
 
-    <div class="container mx-auto p-4 md:p-8 max-w-7xl">
+    <!-- Фонові анімації -->
+    <div class="ambient-light light-1"></div>
+    <div class="ambient-light light-2"></div>
+    <div class="spotlight" id="cursor-spotlight"></div>
 
-        <!-- ЗАГОЛОВОК (Завжди видимий) -->
-        <header class="border-b-2 border-blue-800 pb-4 mb-8">
-            <h1 class="text-3xl md:text-5xl font-extrabold text-blue-300 mb-2">
-                Антикорупція: Виклики та Рішення
+    <div class="container mx-auto p-6 md:p-10 max-w-7xl flex-grow relative z-10">
+
+        <!-- ЗАГОЛОВОК -->
+        <header class="border-b border-white/10 pb-8 mb-12 fade-in text-center md:text-left relative">
+            <h1 class="text-4xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-200 via-white to-blue-200 mb-4 tracking-tight drop-shadow-lg">
+                Антикорупція: виклики та рішення
             </h1>
-            <p class="text-lg md:text-xl text-gray-400">
-                Корупція - грань між безчестям та злочином.
+            <p class="text-xl md:text-2xl text-blue-200/70 font-light tracking-wide">
+                Корупція — грань між безчестям та злочином
             </p>
         </header>
 
         <main>
-            <!-- 
-                КОНТЕЙНЕРИ СТОРІНОК 
-                Всі, крім "home", за замовчуванням приховані (клас "hidden")
-            -->
-
             <!-- 1. ГОЛОВНА СТОРІНКА (НАВІГАЦІЯ) -->
-            <section id="home" class="page-section">
-                <h2 class="text-2xl font-bold mb-6 text-white">Головне меню</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+            <section id="home" class="page-section fade-in">
+                
+                <div class="flex justify-between items-center mb-10 border-l-4 border-blue-500 pl-6">
+                    <h2 class="text-3xl font-bold text-white">Головне меню</h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     
-                    <!-- Кнопка 1 -->
-                    <button data-page="history-eu" class="nav-btn bg-blue-800 hover:bg-blue-700 text-white font-bold py-6 px-6 rounded-lg shadow-xl transition duration-300 transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75">
-                        <span class="text-xl">Історія антикорупційних органів у Європі</span>
-                        <span class="block text-sm text-blue-200 mt-1">Від 80-х до сьогодні</span>
+                    <!-- Історія ЄС -->
+                    <button data-page="history-eu" class="nav-btn col-span-1 md:col-span-2 glass-panel p-8 rounded-2xl hover:border-blue-500/50 group text-left">
+                        <div class="text-blue-400 mb-4 text-4xl opacity-80 group-hover:scale-110 transition duration-300">🇪🇺</div>
+                        <span class="text-2xl font-bold text-white block mb-2 group-hover:text-blue-300 transition">Історія антикорупційних органів у Європі</span>
+                        <span class="text-gray-400 text-sm font-medium">Від «Чистих рук» в Італії до DNA в Румунії. Еволюція боротьби з 80-х років.</span>
                     </button>
 
-                    <!-- Кнопка 2 -->
-                    <button data-page="history-ua" class="nav-btn bg-blue-800 hover:bg-blue-700 text-white font-bold py-6 px-6 rounded-lg shadow-xl transition duration-300 transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75">
-                        <span class="text-xl">Історія антикорупційних органів в Україні</span>
-                        <span class="block text-sm text-blue-200 mt-1">Від незалежності до нової інфраструктури</span>
+                    <!-- Історія України -->
+                    <button data-page="history-ua" class="nav-btn glass-panel p-8 rounded-2xl hover:border-yellow-500/50 group text-left">
+                        <div class="text-yellow-400 mb-4 text-4xl opacity-80 group-hover:scale-110 transition duration-300">🇺🇦</div>
+                        <span class="text-xl font-bold text-white block mb-2">Історія органів в Україні</span>
+                        <span class="text-gray-400 text-sm font-medium">Від імітації до реальної інфраструктури (1991–2024).</span>
                     </button>
 
-                    <!-- Кнопка 3 -->
-                    <button data-page="nabu-sap" class="nav-btn bg-blue-800 hover:bg-blue-700 text-white font-bold py-6 px-6 rounded-lg shadow-xl transition duration-300 transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75">
-                        <span class="text-xl">Робота НАБУ та САП</span>
-                        <span class="block text-sm text-blue-200 mt-1">Хірурги топ-корупції</span>
+                    <!-- НАБУ та САП -->
+                    <button data-page="nabu-sap" class="nav-btn glass-panel p-8 rounded-2xl hover:border-red-500/50 group text-left">
+                        <div class="text-red-400 mb-4 text-4xl opacity-80 group-hover:scale-110 transition duration-300">⚖️</div>
+                        <span class="text-xl font-bold text-white block mb-2">Робота НАБУ та САП</span>
+                        <span class="text-gray-400 text-sm font-medium">Хірурги у сфері топкорупції: спецназ та прокурори.</span>
                     </button>
 
-                    <!-- Кнопка 4 -->
-                    <button data-page="parallels" class="nav-btn bg-gray-700 hover:bg-gray-600 text-white font-bold py-6 px-6 rounded-lg shadow-xl transition duration-300 transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-75">
-                        <span class="text-xl">Паралелі між країнами</span>
-                        <span class="block text-sm text-gray-300 mt-1">Україна, Румунія, Польща: спільний досвід</span>
+                    <!-- Паралелі -->
+                    <button data-page="parallels" class="nav-btn col-span-1 md:col-span-2 glass-panel p-8 rounded-2xl hover:border-purple-500/50 group text-left">
+                        <div class="text-purple-400 mb-4 text-4xl opacity-80 group-hover:scale-110 transition duration-300">🤝</div>
+                        <span class="text-2xl font-bold text-white block mb-2">Паралелі між країнами</span>
+                        <span class="text-gray-400 text-sm font-medium">Спільний досвід та помилки України, Румунії та Польщі.</span>
                     </button>
 
-                    <!-- Кнопка 5 -->
-                    <button data-page="methods" class="nav-btn bg-gray-700 hover:bg-gray-600 text-white font-bold py-6 px-6 rounded-lg shadow-xl transition duration-300 transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-75">
-                        <span class="text-xl">Методики вирішення та запобігання</span>
-                        <span class="block text-sm text-gray-300 mt-1">"Батіг" і "пряник" антикорупції</span>
+                    <!-- МЕТОДИКИ (Перенесено на місце Галереї - КВАДРАТ) -->
+                    <button data-page="methods" class="nav-btn square-btn glass-panel p-4 rounded-2xl hover:border-green-500/50 group border-2 border-green-500/20 shadow-[0_0_20px_rgba(34,197,94,0.1)]">
+                        <div class="text-green-400 mb-3 opacity-80 group-hover:scale-110 transition duration-300">
+                            <!-- Bulb Icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a2 2 0 0 1-2 2H10a2 2 0 0 1-2-2v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7z"/><path d="m9 21 2 2 4-4"/></svg>
+                        </div>
+                        <span class="text-lg font-bold text-white block leading-tight">Методики запобігання</span>
+                        <span class="text-xs text-green-200/70 mt-2 font-medium uppercase tracking-wider">Батіг і Пряник</span>
                     </button>
 
-                    <!-- Кнопка 6 -->
-                    <button data-page="importance" class="nav-btn bg-gray-700 hover:bg-gray-600 text-white font-bold py-6 px-6 rounded-lg shadow-xl transition duration-300 transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-75">
-                        <span class="text-xl">Важливість запобігання корупції</span>
-                        <span class="block text-sm text-gray-300 mt-1">Питання національної безпеки</span>
+                    <!-- ОСТАННІ НОВИНИ (Перенесено на місце Методик - КВАДРАТ) -->
+                    <button data-page="news-ua" class="nav-btn square-btn glass-panel p-4 rounded-2xl hover:border-red-500/50 group border-2 border-red-500/20 shadow-[0_0_20px_rgba(239,68,68,0.1)] relative">
+                        <!-- Пульсуюча крапка -->
+                        <div class="absolute top-4 right-4 w-3 h-3 bg-red-500 rounded-full animate-pulse shadow-[0_0_10px_#ef4444]"></div>
+                        <div class="text-red-400 mb-3 opacity-80 group-hover:scale-110 transition duration-300">
+                            <!-- News Icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg>
+                        </div>
+                        <span class="text-lg font-bold text-white block leading-tight">Останні новини</span>
+                        <span class="text-xs text-red-200/70 mt-2 font-medium uppercase tracking-wider">2025 рік</span>
                     </button>
 
-                    <!-- Кнопка 7 (GEMINI) -->
-                    <button data-page="gemini-case" class="nav-btn bg-yellow-600 hover:bg-yellow-500 text-white font-bold py-6 px-6 rounded-lg shadow-xl transition duration-300 transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-opacity-75 col-span-1 md:col-span-2 lg:col-span-3">
-                        <span class="text-xl">✨ Генератор Гіпотетичних Справ (Gemini)</span>
-                        <span class="block text-sm text-yellow-200 mt-1">Створити приклад розслідування</span>
+                    <!-- Важливість -->
+                    <button data-page="importance" class="nav-btn col-span-1 md:col-span-2 lg:col-span-2 glass-panel p-8 rounded-2xl hover:border-orange-500/50 group text-left">
+                        <div class="text-orange-400 mb-4 text-4xl opacity-80 group-hover:scale-110 transition duration-300">🛡️</div>
+                        <span class="text-2xl font-bold text-white block mb-2">Важливість запобігання</span>
+                        <span class="text-gray-400 text-sm font-medium">Чому корупція вбиває під час війни. Національна безпека.</span>
                     </button>
 
-                    <!-- Кнопка 8 (Sources) -->
-                    <button data-page="sources" class="nav-btn bg-gray-800 hover:bg-gray-700 text-white font-bold py-6 px-6 rounded-lg shadow-xl transition duration-300 transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-75 col-span-1 md:col-span-2 lg:col-span-3">
-                        <span class="text-xl">Використані джерела</span>
-                        <span class="block text-sm text-gray-300 mt-1">Законодавча та наукова база</span>
+                    <!-- Контакти -->
+                    <button data-page="contacts" class="nav-btn col-span-1 md:col-span-2 lg:col-span-2 glass-panel p-6 rounded-2xl hover:border-emerald-500/50 group text-left border-l-4 border-emerald-500">
+                        <span class="text-xl font-bold text-white block mb-2">📞 Контакти та гарячі лінії</span>
+                        <span class="text-gray-400 text-sm font-medium">НАБУ, САП, ВАКС, НАЗК. Повідомити про корупцію (телефон/email).</span>
                     </button>
+
+                    <!-- Gemini -->
+                    <button data-page="gemini-case" class="nav-btn col-span-1 md:col-span-2 lg:col-span-4 glass-panel p-6 rounded-2xl border border-yellow-500/30 hover:bg-yellow-900/10 group text-center relative overflow-hidden">
+                        <div class="absolute inset-0 bg-yellow-500/5 animate-pulse"></div>
+                        <span class="relative z-10 flex items-center justify-center gap-3 text-2xl font-bold text-yellow-100 group-hover:text-white">
+                            <span>✨</span> Генератор гіпотетичних справ (AI)
+                        </span>
+                        <span class="relative z-10 text-yellow-200/70 text-sm block mt-1">Створити унікальний сценарій розслідування за вашим запитом</span>
+                    </button>
+
+                    <!-- Джерела -->
+                    <button data-page="sources" class="nav-btn col-span-1 md:col-span-4 glass-panel p-4 rounded-xl text-center text-gray-500 hover:text-gray-300 text-sm">
+                        📚 Використані джерела: законодавча та наукова база
+                    </button>
+
+                </div>
+            </section>
+
+            <!-- ОСТАННІ НОВИНИ (Сторінка) -->
+            <section id="news-ua" class="page-section hidden glass-panel p-8 md:p-12 rounded-2xl fade-in">
+                <button class="back-btn mb-8 text-red-400 hover:text-red-300 flex items-center gap-2 transition group">
+                    <span class="group-hover:-translate-x-1 transition">←</span> На головну
+                </button>
+                <h2 class="text-3xl font-black text-red-100 mb-8 border-b border-red-900/50 pb-4">
+                    🔥 Антикорупційний фронт: хроніка (Жовтень–Листопад 2025)
+                </h2>
+
+                <div class="relative border-l-2 border-gray-700 ml-4 space-y-12">
+                    
+                    <!-- Новина 1 (Requested by User) -->
+                    <div class="timeline-item pl-8 relative fade-in delay-100">
+                        <span class="text-red-400 font-mono text-sm font-bold block mb-1">26 листопада 2025</span>
+                        <h3 class="text-xl font-bold text-white mb-2">Обшуки НАБУ у керівництва Офісу Президента</h3>
+                        <p class="text-gray-400 text-sm">
+                            Детективи НАБУ спільно з прокурорами САП провели резонансні слідчі дії (обшуки) у кабінеті керівника Офісу Президента Андрія Єрмака. Справа стосується ймовірного витоку інформації про стратегічні оборонні закупівлі. Подія викликала безпрецедентний резонанс у суспільстві та західних ЗМІ.
+                        </p>
+                    </div>
+
+                    <!-- Новина 2 -->
+                    <div class="timeline-item pl-8 relative fade-in delay-200">
+                        <span class="text-blue-400 font-mono text-sm font-bold block mb-1">25 листопада 2025</span>
+                        <h3 class="text-xl font-bold text-white mb-2">Викрито масштабну схему на Донеччині (140 млн грн)</h3>
+                        <p class="text-gray-400 text-sm">
+                            НАБУ і САП викрили організовану групу на чолі з керівником департаменту Донецької ОДА. Чиновники привласнили понад 140 мільйонів гривень, призначених для забезпечення теплом та водою прифронтових міст. Підозрюваних затримано.
+                        </p>
+                    </div>
+
+                    <!-- Новина 3 -->
+                    <div class="timeline-item pl-8 relative fade-in delay-200">
+                        <span class="text-green-400 font-mono text-sm font-bold block mb-1">17 листопада 2025</span>
+                        <h3 class="text-xl font-bold text-white mb-2">Слідчі дії в «Нафтогазі»</h3>
+                        <p class="text-gray-400 text-sm">
+                            Детективи НАБУ провели обшуки у директора з безпеки «Нафтогазу». Розслідування стосується зловживань при закупівлі обладнання для газовидобутку. Вилучено документи та цифрові носії.
+                        </p>
+                    </div>
+
+                    <!-- Новина 4 -->
+                    <div class="timeline-item pl-8 relative fade-in delay-300">
+                        <span class="text-yellow-400 font-mono text-sm font-bold block mb-1">6 листопада 2025</span>
+                        <h3 class="text-xl font-bold text-white mb-2">Протести проти закону № 12414</h3>
+                        <p class="text-gray-400 text-sm">
+                            У Києві та Львові пройшли акції протесту проти законопроєкту № 12414, який громадськість розцінила як спробу влади обмежити незалежність САП через посилення контролю Генпрокурора. Активісти вимагають ветувати закон.
+                        </p>
+                    </div>
+
+                    <!-- Новина 5 -->
+                    <div class="timeline-item pl-8 relative fade-in delay-300">
+                        <span class="text-purple-400 font-mono text-sm font-bold block mb-1">20 жовтня 2025</span>
+                        <h3 class="text-xl font-bold text-white mb-2">Справа «Мідас»: нові підозри</h3>
+                        <p class="text-gray-400 text-sm">
+                            В рамках розслідування справи «Мідас» (щодо корупції на митниці) повідомлено про підозру ще трьом високопосадовцям регіональних митниць. Сума збитків оцінюється у 450 млн грн.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- КОНТАКТИ (Сторінка) -->
+            <section id="contacts" class="page-section hidden glass-panel p-8 md:p-12 rounded-2xl fade-in">
+                <button class="back-btn mb-8 text-emerald-400 hover:text-emerald-300 flex items-center gap-2 transition group">
+                    <span class="group-hover:-translate-x-1 transition">←</span> На головну
+                </button>
+                <h2 class="text-3xl font-black text-emerald-100 mb-8 border-b border-emerald-900/50 pb-4">
+                    📞 Контакти відповідальних органів
+                </h2>
+                <p class="text-gray-300 mb-8">Натисніть на номер телефону або пошту для миттєвого з'єднання.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- НАБУ -->
+                    <div class="bg-gray-900/60 p-6 rounded-xl border border-blue-600/30 hover:border-blue-500 transition duration-300 shadow-[0_0_15px_rgba(37,99,235,0.1)]">
+                        <h3 class="text-xl font-bold text-blue-400 mb-4 flex items-center gap-2">🛡️ НАБУ (Бюро)</h3>
+                        <div class="space-y-4">
+                            <a href="tel:0800213200" class="block bg-blue-900/20 p-3 rounded-lg hover:bg-blue-900/40 transition flex items-center gap-3">
+                                <span class="text-2xl">📞</span>
+                                <div>
+                                    <span class="text-xs text-gray-400 block uppercase">Спеціальна лінія</span>
+                                    <span class="text-white font-mono font-bold">0-800-213-200</span>
+                                </div>
+                            </a>
+                            <a href="mailto:press@nabu.gov.ua" class="block bg-blue-900/20 p-3 rounded-lg hover:bg-blue-900/40 transition flex items-center gap-3">
+                                <span class="text-2xl">📧</span>
+                                <div>
+                                    <span class="text-xs text-gray-400 block uppercase">Для преси/запитів</span>
+                                    <span class="text-white font-mono">press@nabu.gov.ua</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- САП -->
+                    <div class="bg-gray-900/60 p-6 rounded-xl border border-yellow-600/30 hover:border-yellow-500 transition duration-300 shadow-[0_0_15px_rgba(202,138,4,0.1)]">
+                        <h3 class="text-xl font-bold text-yellow-400 mb-4 flex items-center gap-2">⚖️ САП (Прокуратура)</h3>
+                        <div class="space-y-4">
+                            <a href="tel:+380442004954" class="block bg-yellow-900/20 p-3 rounded-lg hover:bg-yellow-900/40 transition flex items-center gap-3">
+                                <span class="text-2xl">📞</span>
+                                <div>
+                                    <span class="text-xs text-gray-400 block uppercase">Для медіа</span>
+                                    <span class="text-white font-mono font-bold">(044) 200-49-54</span>
+                                </div>
+                            </a>
+                            <a href="mailto:office@sap.gp.gov.ua" class="block bg-yellow-900/20 p-3 rounded-lg hover:bg-yellow-900/40 transition flex items-center gap-3">
+                                <span class="text-2xl">📧</span>
+                                <div>
+                                    <span class="text-xs text-gray-400 block uppercase">Офіційна пошта</span>
+                                    <span class="text-white font-mono">office@sap.gp.gov.ua</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- ВАКС -->
+                    <div class="bg-gray-900/60 p-6 rounded-xl border border-red-600/30 hover:border-red-500 transition duration-300 shadow-[0_0_15px_rgba(220,38,38,0.1)]">
+                        <h3 class="text-xl font-bold text-red-400 mb-4 flex items-center gap-2">🏛️ ВАКС (Суд)</h3>
+                        <div class="space-y-4">
+                            <a href="tel:+380442073546" class="block bg-red-900/20 p-3 rounded-lg hover:bg-red-900/40 transition flex items-center gap-3">
+                                <span class="text-2xl">📞</span>
+                                <div>
+                                    <span class="text-xs text-gray-400 block uppercase">Контакт-центр</span>
+                                    <span class="text-white font-mono font-bold">(044) 207-35-46</span>
+                                </div>
+                            </a>
+                            <a href="mailto:inbox@vaks.gov.ua" class="block bg-red-900/20 p-3 rounded-lg hover:bg-red-900/40 transition flex items-center gap-3">
+                                <span class="text-2xl">📧</span>
+                                <div>
+                                    <span class="text-xs text-gray-400 block uppercase">Канцелярія</span>
+                                    <span class="text-white font-mono">inbox@vaks.gov.ua</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- НАЗК -->
+                    <div class="bg-gray-900/60 p-6 rounded-xl border border-purple-600/30 hover:border-purple-500 transition duration-300 shadow-[0_0_15px_rgba(147,51,234,0.1)]">
+                        <h3 class="text-xl font-bold text-purple-400 mb-4 flex items-center gap-2">🔍 НАЗК (Запобігання)</h3>
+                        <div class="space-y-4">
+                            <a href="tel:+380442000691" class="block bg-purple-900/20 p-3 rounded-lg hover:bg-purple-900/40 transition flex items-center gap-3">
+                                <span class="text-2xl">🚨</span>
+                                <div>
+                                    <span class="text-xs text-gray-400 block uppercase font-bold text-red-400">Повідомити про корупцію</span>
+                                    <span class="text-white font-mono font-bold">+38(044) 200-06-91</span>
+                                </div>
+                            </a>
+                            <a href="mailto:anticor_reports@nazk.gov.ua" class="block bg-purple-900/20 p-3 rounded-lg hover:bg-purple-900/40 transition flex items-center gap-3">
+                                <span class="text-2xl">📧</span>
+                                <div>
+                                    <span class="text-xs text-gray-400 block uppercase">Для повідомлень</span>
+                                    <span class="text-white font-mono">anticor_reports@nazk.gov.ua</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
 
                 </div>
             </section>
 
             <!-- 2. ІСТОРІЯ АНТИКОРУПЦІЙНИХ ОРГАНІВ У ЄВРОПІ -->
-            <section id="history-eu" class="page-section hidden bg-gray-800 p-6 md:p-8 rounded-lg shadow-2xl">
-                <button class="back-btn mb-6 bg-blue-700 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow transition duration-300">
-                    &larr; Повернутися на головну
+            <section id="history-eu" class="page-section hidden glass-panel p-8 md:p-12 rounded-2xl fade-in">
+                <button class="back-btn mb-8 flex items-center gap-2 text-blue-400 hover:text-blue-300 font-medium transition duration-300 group">
+                    <span class="group-hover:-translate-x-1 transition-transform">←</span> Повернутися на головну
                 </button>
-                <h2 class="text-3xl font-bold mb-6 text-blue-300">Пробудження Європи: Еволюція антикорупційної боротьби (1980-2020-ті)</h2>
+                <h2 class="text-3xl md:text-4xl font-bold mb-8 text-blue-50 border-b border-gray-700 pb-4">Пробудження Європи: еволюція антикорупційної боротьби (1980–2020-ті)</h2>
                 
-                <p class="text-lg mb-4 leading-relaxed">
-                    На відміну від поширеного міфу, системна боротьба з корупцією в Європі — це відносно сучасний феномен, що активізувався в останні 40-45 років. До 1980-х років хабарництво, особливо у міжнародному бізнесі, часто розглядалося як "необхідні витрати" і в деяких країнах (як-от Німеччина) навіть дозволяло податкове вирахування таких витрат.
-                </p>
-                <p class="text-lg mb-4 leading-relaxed">
-                    <span class="font-bold text-white">1980-ті: Перші тривожні дзвіночки.</span> Скандали, як-от "справа Lockheed", що вибухнула ще в 70-х, але мала наслідки у 80-х (коли компанії США платили хабарі політикам в Італії, Японії, Нідерландах), почали змінювати парадигму. В Італії зароджувався рух проти мафії, що був нерозривно пов'язаний з корупцією у владі.
-                </p>
-                <p class="text-lg mb-4 leading-relaxed">
-                    <span class="font-bold text-white">1990-ті: "Холодний душ" та інституціалізація.</span>
-                </p>
-                <ul class="list-disc list-inside mb-4 pl-4 text-lg leading-relaxed">
-                    <li class="mb-2"><span class="font-semibold">Операція "Чисті руки" (Mani pulite, Італія, 1992):</span> Стала шоком для всієї Європи. Масштабні розслідування виявили тотальну корупційну систему "Tangentopoli" ("Місто хабарів"), що призвело до падіння "Першої республіки" та зникнення провідних політичних партій. Це була жорстка демонстрація того, що корупція може зруйнувати стабільну демократію.</li>
-                    <li class="mb-2"><span class="font-semibold">Створення OLAF (1999):</span> На тлі корупційного скандалу, що призвів до відставки всієї Комісії Сантера, Європейський Союз створив Європейське бюро по боротьбі з шахрайством (OLAF). Його мандат — розслідувати шахрайство з бюджетом ЄС, корупцію та серйозні проступки в інституціях ЄС.</li>
-                    <li class="mb-2"><span class="font-semibold">OECD та GRECO (1997-1999):</span> Організація економічного співробітництва та розвитку (OECD) приймає <span class="text-blue-300">Конвенцію про боротьбу з підкупом іноземних посадових осіб</span> (1997) — це стало революцією, криміналізувавши хабарі за кордоном. Майже одночасно Рада Європи засновує GRECO (Група держав проти корупції, 1999) — механізм моніторингу та "тиску" на країни-члени для покращення їхніх стандартів.</li>
-                </ul>
-                <p class="text-lg mb-4 leading-relaxed">
-                    <span class="font-bold text-white">2000-ні - 2020-ті: Спеціалізація та превенція.</span> Після фундаменту 90-х, країни почали створювати спеціалізовані органи.
-                </p>
-                <ul class="list-disc list-inside mb-4 pl-4 text-lg leading-relaxed">
-                    <li class="mb-2"><span class="font-semibold">Східноєвропейський досвід:</span> Країни, що приєднувалися до ЄС (Польща, Румунія, країни Балтії), були змушені створювати потужні інституції. Найвідоміший приклад — <span class="text-blue-300">Національна антикорупційна дирекція (DNA) в Румунії</span>, яка з 2002 року відправила за ґрати тисячі чиновників, включно з міністрами та прем'єр-міністром. У Польщі було створено Центральне антикорупційне бюро (CBA).</li>
-                    <li class="mb-2"><span class="font-semibold">EPPO (2021):</span> Найновіша еволюція — створення Офісу Європейського прокурора (EPPO). Це перший наднаціональний орган, що може *розслідувати та притягати до відповідальності* за злочини проти бюджету ЄС (ПДВ-шахрайство, корупція з фондами ЄС).</li>
-                </ul>
-                <p class="text-lg mb-4 leading-relaxed">
-                    <span class="font-bold text-white">Висновок:</span> Європейський шлях показує, що антикорупція — це не про "старі демократії", а про <span class="text-blue-300">політичну волю, жорсткий суспільний запит (часто після скандалів) та створення незалежних, спеціалізованих і "зубатих" інституцій.</span> Боротьба ніколи не закінчується; вона лише переходить на новий рівень складності.
-                </p>
+                <article class="prose prose-invert prose-lg max-w-none">
+                    <p class="text-gray-300">
+                        На відміну від поширеного міфу, системна боротьба з корупцією в Європі — це відносно сучасний феномен, що активізувався в останні 40–45 років. До 1980-х років хабарництво, особливо в міжнародному бізнесі, часто розглядалося як «необхідні витрати», а в деяких країнах (як-от Німеччина) навіть дозволялося податкове вирахування таких витрат.
+                    </p>
+                    <p class="text-gray-300">
+                        <strong class="text-white">1980-ті роки: перші тривожні дзвіночки.</strong> Скандали, як-от «справа Lockheed», що вибухнула ще в 70-х, але мала наслідки у 80-х (коли компанії США платили хабарі політикам в Італії, Японії, Нідерландах), почали змінювати парадигму. В Італії зароджувався рух проти мафії, що був нерозривно пов'язаний з корупцією у владі.
+                    </p>
+                    <p class="text-gray-300">
+                        <strong class="text-white">1990-ті роки: «холодний душ» та інституціалізація.</strong>
+                    </p>
+                    <ul class="list-none space-y-4 pl-0">
+                        <li class="pl-4 border-l-2 border-blue-600">
+                            <strong class="text-blue-200">Операція «Чисті руки» (Mani pulite, Італія, 1992).</strong> Стала шоком для всієї Європи. Масштабні розслідування виявили тотальну корупційну систему <em>Tangentopoli</em> («Місто хабарів»), що призвело до падіння «Першої республіки» та зникнення провідних політичних партій. Це була жорстка демонстрація того, що корупція може зруйнувати стабільну демократію.
+                        </li>
+                        <li class="pl-4 border-l-2 border-blue-600">
+                            <strong class="text-blue-200">Створення OLAF (1999).</strong> На тлі корупційного скандалу, що призвів до відставки всієї Комісії Сантера, Європейський Союз створив Європейське бюро з питань боротьби з шахрайством (OLAF). Його мандат — розслідувати шахрайство з бюджетом ЄС, корупцію та серйозні проступки в інституціях ЄС.
+                        </li>
+                        <li class="pl-4 border-l-2 border-blue-600">
+                            <strong class="text-blue-200">OECD та GRECO (1997–1999).</strong> Організація економічного співробітництва та розвитку (OECD) ухвалює <span class="text-blue-300 font-medium">Конвенцію про боротьбу з підкупом іноземних посадових осіб</span> (1997) — це стало революцією, що криміналізувала хабарі за кордоном. Майже одночасно Рада Європи засновує GRECO (Група держав проти корупції, 1999) — механізм моніторингу та «тиску» на країни-члени задля покращення їхніх стандартів.
+                        </li>
+                    </ul>
+                    <p class="text-gray-300 mt-6">
+                        <strong class="text-white">2000-ні — 2020-ті роки: спеціалізація та превенція.</strong> Після фундаменту 90-х країн почали створювати спеціалізовані органи.
+                    </p>
+                    <ul class="list-none space-y-4 pl-0">
+                        <li class="pl-4 border-l-2 border-gray-600">
+                            <strong class="text-gray-200">Східноєвропейський досвід.</strong> Країни, що приєднувалися до ЄС (Польща, Румунія, країни Балтії), були змушені створювати потужні інституції. Найвідоміший приклад — <span class="text-blue-300 font-medium">Національна антикорупційна дирекція (DNA) в Румунії</span>, яка з 2002 року відправила за ґрати тисячі чиновників включно з міністрами та прем'єр-міністром. У Польщі було створено Центральне антикорупційне бюро (CBA).
+                        </li>
+                        <li class="pl-4 border-l-2 border-gray-600">
+                            <strong class="text-gray-200">EPPO (2021).</strong> Найновіша еволюція — створення Офісу Європейського прокурора (EPPO). Це перший наднаціональний орган, що може <em>розслідувати та притягати до відповідальності</em> за злочини проти бюджету ЄС (ПДВ-шахрайство, корупція з фондами ЄС).
+                        </li>
+                    </ul>
+                    <div class="bg-blue-900/30 border border-blue-800/50 p-6 rounded-lg mt-8">
+                        <p class="text-blue-100 m-0">
+                            <strong class="text-white uppercase tracking-wider text-sm block mb-2">Висновок</strong>
+                            Європейський шлях показує, що антикорупція — це не про «старі демократії», а про <span class="text-blue-300 font-medium">політичну волю, жорсткий суспільний запит (часто після скандалів) та створення незалежних, спеціалізованих і «зубатих» інституцій</span>. Боротьба ніколи не закінчується — вона лише переходить на новий рівень складності.
+                        </p>
+                    </div>
+                </article>
             </section>
 
             <!-- 3. ІСТОРІЯ АНТИКОРУПЦІЙНИХ ОРГАНІВ В УКРАЇНІ -->
-            <section id="history-ua" class="page-section hidden bg-gray-800 p-6 md:p-8 rounded-lg shadow-2xl">
-                <button class="back-btn mb-6 bg-blue-700 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow transition duration-300">
-                    &larr; Повернутися на головну
+            <section id="history-ua" class="page-section hidden glass-panel p-8 md:p-12 rounded-2xl fade-in">
+                <button class="back-btn mb-8 flex items-center gap-2 text-blue-400 hover:text-blue-300 font-medium transition duration-300 group">
+                    <span class="group-hover:-translate-x-1 transition-transform">←</span> Повернутися на головну
                 </button>
-                <h2 class="text-3xl font-bold mb-6 text-blue-300">Український лабіринт: Імітація боротьби та народження інфраструктури (1991-2024)</h2>
+                <h2 class="text-3xl md:text-4xl font-bold mb-8 text-blue-50 border-b border-gray-700 pb-4">Український лабіринт: імітація боротьби та народження інфраструктури (1991–2024)</h2>
                 
-                <p class="text-lg mb-4 leading-relaxed">
-                    Історія боротьби з корупцією в Україні — це драма про те, як система, створена для захисту, сама стала частиною проблеми. Протягом 23 років незалежності (1991-2014) "боротьба з корупцією" була зручною ширмою для перерозподілу потоків та усунення політичних конкурентів.
-                </p>
-                <p class="text-lg mb-4 leading-relaxed">
-                    <span class="font-bold text-white">Етап 1: "Боротьба бджіл проти меду" (1991-2014).</span>
-                </p>
-                <ul class="list-disc list-inside mb-4 pl-4 text-lg leading-relaxed">
-                    <li class="mb-2">Завдання боротьби з корупцією було розпорошене між різними органами:
-                        <ul class="list-decimal list-inside ml-6 mt-2">
-                            <li><span class="font-semibold">МВС (Міліція):</span> Головно боролися з побутовою корупцією (ДАІ, дозвільна система) та "низовою" економічною злочинністю (УБЕЗ/ДЕЗ).</li>
-                            <li><span class="font-semibold">СБУ:</span> Мало свій потужний "економічний" підрозділ (Головне управління "К"), який мав боротися з корупцією у вищих ешелонах влади, але часто звинувачувався у "кришуванні" контрабанди та бізнесу.</li>
-                            <li><span class="font-semibold">Прокуратура:</span> Мала "всеохопне" повноваження нагляду та слідства, що створювало колосальні корупційні ризики. Вона могла "розвалити" будь-яку справу, або "замовити" її.</li>
-                        </ul>
-                    </li>
-                    <li class="mb-2">Результат: Повна відсутність системних розслідувань щодо топ-чиновників. Корупція стала не збоєм системи, а <span class="text-blue-300">самою системою</span> державного управління та взаємодії бізнесу і влади.</li>
-                </ul>
-                <p class="text-lg mb-4 leading-relaxed">
-                    <span class="font-bold text-white">Етап 2: Революція Гідності та примус до змін (2014 - дотепер).</span>
-                </p>
-                <p class="text-lg mb-4 leading-relaxed">
-                    Запит на справедливість був одним із головних рушіїв Майдану 2013-2014 років. Під тиском громадянського суспільства та міжнародних партнерів (МВФ, ЄС — як умова безвізу) Україна почала будувати з нуля нову, <span class="font-bold">незалежну антикорупційну інфраструктуру</span>.
-                </p>
-                <ul class="list-disc list-inside mb-4 pl-4 text-lg leading-relaxed">
-                    <li class="mb-2"><span class="font-semibold text-blue-300">НАБУ (Національне антикорупційне бюро України, 2015):</span> Створене як "спецназ" з розслідування <span class="text-white">виключно топ-корупції</span> (міністри, депутати, судді, керівники держпідприємств). Принципова відмінність: незалежний конкурсний відбір детективів та директора (із залученням міжнародників), вищі зарплати для зменшення ризиків, власна прослушка та оперативно-технічні можливості.</li>
-                    <li class="mb-2"><span class="font-semibold text-blue-300">НАЗК (Національне агентство з питань запобігання корупції, 2015):</span> Орган превенції. Його головна зброя — система <span class="text-white">електронного декларування</span>, що змусила чиновників вперше публічно показати свої статки. НАЗК перевіряє декларації, моніторить стиль життя та конфлікт інтересів.</li>
-                    <li class="mb-2"><span class="font-semibold text-blue-300">САП (Спеціалізована антикорупційна прокуратура, 2015):</span> Створена як незалежний підрозділ Генпрокуратури (зараз — повністю автономна) для нагляду за розслідуваннями НАБУ та підтримки обвинувачення в суді. Це зв'язка "детектив + прокурор".</li>
-                    <li class="mb-2"><span class="font-semibold text-blue-300">ВАКС (Вищий антикорупційний суд, 2019):</span> "Вишенька на торті". Без незалежного суду справи НАБУ і САП "ховалися" у старих, корумпованих судах. ВАКС, сформований за участі Громадської ради міжнародних експертів, розглядає <span class="text-white">виключно справи топ-корупції</span>. Саме з його появою почалися перші реальні вироки.</li>
-                    <li class="mb-2"><span class="font-semibold text-blue-300">АРМА (2015):</span> Агентство з розшуку та менеджменту активів, отриманих від корупційних злочинів.</li>
-                </ul>
-                <p class="text-lg mb-4 leading-relaxed">
-                    <span class="font-bold text-white">Висновок:</span> Україна за кілька років імпортувала та адаптувала передовий світовий досвід. Ця нова інфраструктура одразу вступила в жорсткий конфлікт зі "старою системою" (Конституційний Суд, ОАСК, політичні еліти), яка намагалася її знищити. Ця війна триває досі.
-                </p>
+                <article class="prose prose-invert prose-lg max-w-none">
+                    <p class="text-gray-300">
+                        Історія боротьби з корупцією в Україні — це драма про те, як система, створена для захисту, сама стала частиною проблеми. Протягом 23 років незалежності (1991–2014) «боротьба з корупцією» була зручною ширмою для перерозподілу потоків та усунення політичних конкурентів.
+                    </p>
+                    <p class="text-gray-300">
+                        <strong class="text-white">Етап 1: «боротьба бджіл проти меду» (1991–2014).</strong>
+                    </p>
+                    <ul class="list-disc list-outside mb-6 pl-6 text-gray-300 marker:text-blue-500">
+                        <li class="mb-2">Завдання боротьби з корупцією було розпорошене між різними органами:
+                            <ul class="list-none mt-2 space-y-2 border-l border-gray-700 pl-4">
+                                <li><strong class="text-white">МВС (міліція):</strong> головно боролися з побутовою корупцією (ДАІ, дозвільна система) та «низовою» економічною злочинністю (УБЕЗ/ДЕЗ).</li>
+                                <li><strong class="text-white">СБУ:</strong> мало свій потужний «економічний» підрозділ (Головне управління «К»), який мав боротися з корупцією у вищих ешелонах влади, але часто звинувачувався у «кришуванні» контрабанди та бізнесу.</li>
+                                <li><strong class="text-white">Прокуратура:</strong> мала «всеохопне» повноваження нагляду та слідства, що створювало колосальні корупційні ризики. Вона могла «розвалити» будь-яку справу або «замовити» її.</li>
+                            </ul>
+                        </li>
+                        <li class="mb-2">Результат: повна відсутність системних розслідувань щодо топчиновників. Корупція стала не збоєм системи, а <span class="text-blue-300 font-medium">самою системою</span> державного управління та взаємодії бізнесу і влади.</li>
+                    </ul>
+                    
+                    <p class="text-gray-300">
+                        <strong class="text-white">Етап 2: Революція Гідності та примус до змін (2014 – дотепер).</strong>
+                    </p>
+                    <p class="text-gray-300">
+                        Запит на справедливість був одним із головних рушіїв Майдану 2013–2014 років. Під тиском громадянського суспільства та міжнародних партнерів (МВФ, ЄС — як умова безвізу) Україна почала будувати з нуля нову, <strong class="text-white">незалежну антикорупційну інфраструктуру</strong>.
+                    </p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
+                        <div class="bg-gray-900/50 p-5 rounded-lg border-l-4 border-blue-500">
+                            <h4 class="text-blue-200 font-bold mb-2">НАБУ (2015)</h4>
+                            <p class="text-sm text-gray-400 m-0">Створене як «спецназ» для розслідування <span class="text-white">виключно топкорупції</span> (міністри, депутати, судді). Незалежний конкурсний відбір, власна прослушка, високі зарплати.</p>
+                        </div>
+                        <div class="bg-gray-900/50 p-5 rounded-lg border-l-4 border-blue-500">
+                            <h4 class="text-blue-200 font-bold mb-2">НАЗК (2015)</h4>
+                            <p class="text-sm text-gray-400 m-0">Орган превенції. Головна зброя — система <span class="text-white">електронного декларування</span>, що змусила чиновників показати статки. Перевіряє декларації та конфлікт інтересів.</p>
+                        </div>
+                        <div class="bg-gray-900/50 p-5 rounded-lg border-l-4 border-blue-500">
+                            <h4 class="text-blue-200 font-bold mb-2">САП (2015)</h4>
+                            <p class="text-sm text-gray-400 m-0">Автономний підрозділ для нагляду за НАБУ та підтримки обвинувачення. Зв'язка «детектив + прокурор».</p>
+                        </div>
+                        <div class="bg-gray-900/50 p-5 rounded-lg border-l-4 border-blue-500">
+                            <h4 class="text-blue-200 font-bold mb-2">ВАКС (2019)</h4>
+                            <p class="text-sm text-gray-400 m-0">«Вишенька на торті». Розглядає <span class="text-white">виключно справи топкорупції</span>. Саме з його появою почалися перші реальні вироки.</p>
+                        </div>
+                    </div>
+                    
+                    <p class="text-gray-300">
+                        Також було створено <strong class="text-blue-200">АРМА (2015)</strong> — агентство з розшуку та менеджменту активів, одержаних від корупційних злочинів.
+                    </p>
+
+                    <div class="bg-blue-900/30 border border-blue-800/50 p-6 rounded-lg mt-8">
+                         <p class="text-blue-100 m-0">
+                            <strong class="text-white uppercase tracking-wider text-sm block mb-2">Висновок</strong>
+                            Україна за кілька років імпортувала та адаптувала передовий світовий досвід. Ця нова інфраструктура одразу вступила в жорсткий конфлікт зі «старою системою» (Конституційний Суд, ОАСК, політичні еліти), яка намагалася її знищити. Ця війна триває досі.
+                        </p>
+                    </div>
+                </article>
             </section>
 
             <!-- 4. РОБОТА НАБУ ТА САП -->
-            <section id="nabu-sap" class="page-section hidden bg-gray-800 p-6 md:p-8 rounded-lg shadow-2xl">
-                <button class="back-btn mb-6 bg-blue-700 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow transition duration-300">
-                    &larr; Повернутися на головну
+            <section id="nabu-sap" class="page-section hidden glass-panel p-8 md:p-12 rounded-2xl fade-in">
+                <button class="back-btn mb-8 flex items-center gap-2 text-blue-400 hover:text-blue-300 font-medium transition duration-300 group">
+                    <span class="group-hover:-translate-x-1 transition-transform">←</span> Повернутися на головну
                 </button>
-                <h2 class="text-3xl font-bold mb-6 text-blue-300">Спецназ проти "недоторканних": Як працюють НАБУ і САП</h2>
+                <h2 class="text-3xl md:text-4xl font-bold mb-8 text-blue-50 border-b border-gray-700 pb-4">Спецназ проти «недоторканних»: як працюють НАБУ і САП</h2>
                 
-                <p class="text-lg mb-4 leading-relaxed">
-                    Створення НАБУ і САП було визнанням простого факту: звичайні правоохоронні органи <span class="text-white">органічно нездатні</span> боротися з топ-корупцією, бо вони самі є частиною корумпованої державної машини. НАБУ і САП були задумані як "хірургічний інструмент" для видалення пухлин, до яких інші боялися торкнутися.
-                </p>
+                <article class="prose prose-invert prose-lg max-w-none">
+                    <p class="text-gray-300">
+                        Створення НАБУ і САП було визнанням простого факту: звичайні правоохоронні органи <span class="text-white">органічно нездатні</span> боротися з топкорупцією, бо вони самі є частиною корумпованої державної машини. НАБУ і САП були задумані як «хірургічний інструмент» для видалення пухлин, до яких інші боялися торкнутися.
+                    </p>
 
-                <h3 class="text-2xl font-bold mb-4 text-white">НАБУ: Детективи, Аналітики, Технології</h3>
-                <p class="text-lg mb-4 leading-relaxed">
-                    НАБУ — це, по суті, елітне слідче агентство, схоже на американське ФБР, але з вузькою спеціалізацією.
-                </p>
-                <ul class="list-disc list-inside mb-4 pl-4 text-lg leading-relaxed">
-                    <li class="mb-2"><span class="font-semibold">Підслідність — це ключ:</span> НАБУ не займається дрібними хабарями. Їхня ціль — злочини, вчинені <span class="text-blue-300">Президентом (повноваження якого припинено), міністрами, депутатами, головою НБУ, суддями вищих інстанцій, керівниками держпідприємств</span>, якщо сума збитків або хабаря перевищує встановлений поріг (наразі — понад 1,5 млн грн).</li>
-                    <li class="mb-2"><span class="font-semibold">Аналітика — головна зброя:</span> Велика частина роботи — не "маски-шоу", а тиха робота аналітиків. Вони моніторять декларації, тендери в Prozorro, банківські транзакції, шукаючи "червоні прапорці". Вони складають "карту" злочинної групи ще до першого обшуку.</li>
-                    <li class="mb-2"><span class="font-semibold">Технічна незалежність:</span> НАБУ має право на самостійне зняття інформації з каналів зв'язку (прослуховування), що є критично важливим. Раніше для цього треба було звертатися до СБУ, що гарантувало витік інформації фігурантам.</li>
-                    <li class="mb-2"><span class="font-semibold">"Агенти під прикриттям":</span> НАБУ активно використовує інститут негласних слідчих дій та агентів "під прикриттям" для документування злочинів "на гарячому", що особливо ефективно у справах про хабарництво.</li>
-                </ul>
+                    <h3 class="text-2xl font-semibold mt-8 mb-4 text-white">НАБУ: детективи, аналітики, технології</h3>
+                    <p class="text-gray-300">
+                        НАБУ — це, по суті, елітне слідче агентство, схоже на американське ФБР, але з вузькою спеціалізацією.
+                    </p>
+                    <ul class="list-disc list-outside mb-6 pl-6 text-gray-300 marker:text-blue-500">
+                        <li class="mb-2"><strong class="text-white">Підслідність — це ключ.</strong> НАБУ не займається дрібними хабарями. Їхня ціль — злочини, вчинені <span class="text-blue-300 font-medium">Президентом (повноваження якого припинено), міністрами, депутатами, головою НБУ, суддями вищих інстанцій, керівниками держпідприємств</span>, якщо сума збитків або хабаря перевищує встановлений поріг (наразі — понад 1,5 млн грн).</li>
+                        <li class="mb-2"><strong class="text-white">Аналітика — головна зброя.</strong> Велика частина роботи — не «маски-шоу», а тиха робота аналітиків. Вони моніторять декларації, тендери в Prozorro, банківські транзакції, шукаючи «червоні прапорці». Вони складають «карту» злочинної групи ще до першого обшуку.</li>
+                        <li class="mb-2"><strong class="text-white">Технічна незалежність.</strong> НАБУ має право на самостійне зняття інформації з каналів зв'язку (прослуховування), що є критично важливим. Раніше для цього треба було звертатися до СБУ, що гарантувало витік інформації фігурантам.</li>
+                        <li class="mb-2"><strong class="text-white">«Агенти під прикриттям».</strong> НАБУ активно використовує інститут негласних слідчих дій та агентів «під прикриттям» для документування злочинів «на гарячому», що особливо ефективно у справах про хабарництво.</li>
+                    </ul>
 
-                <h3 class="text-2xl font-bold mb-4 text-white">САП: Процесуальний "ключ" та державне обвинувачення</h3>
-                <p class="text-lg mb-4 leading-relaxed">
-                    Якщо НАБУ — це слідчий, то САП — це прокурор. Без прокурора жодна дія детектива (обшук, прослуховування, затримання) не є законною, і справа ніколи не потрапить до суду.
-                </p>
-                <ul class="list-disc list-inside mb-4 pl-4 text-lg leading-relaxed">
-                    <li class="mb-2"><span class="font-semibold">Процесуальне керівництво:</span> Прокурор САП веде справу з першого дня: погоджує клопотання детективів, дає вказівки, оцінює докази.</li>
-                    <li class="mb-2"><span class="font-semibold">Незалежність від Генпрокурора:</span> Це було революційно. Керівник САП підпорядкований Генпрокурору лише формально, але є повністю незалежним у своїх процесуальних рішеннях. Це усунуло можливість "злити" справу за вказівкою згори.</li>
-                    <li class="mb-2"><span class="font-semibold">Підтримка обвинувачення у ВАКС:</span> Прокурори САП представляють сторону обвинувачення у Вищому антикорупційному суді. Їхня якість роботи напряму впливає на те, чи "встоїть" справа проти армії дорогих адвокатів.</li>
-                </ul>
+                    <h3 class="text-2xl font-semibold mt-8 mb-4 text-white">САП: процесуальний «ключ» та державне обвинувачення</h3>
+                    <p class="text-gray-300">
+                        Якщо НАБУ — це слідчий, то САП — це прокурор. Без прокурора жодна дія детектива (обшук, прослуховування, затримання) не є законною, і справа ніколи не потрапить до суду.
+                    </p>
+                    <ul class="list-disc list-outside mb-6 pl-6 text-gray-300 marker:text-blue-500">
+                        <li class="mb-2"><strong class="text-white">Процесуальне керівництво.</strong> Прокурор САП веде справу з першого дня: погоджує клопотання детективів, дає вказівки, оцінює докази.</li>
+                        <li class="mb-2"><strong class="text-white">Незалежність від Генпрокурора.</strong> Це було революційно. Керівник САП підпорядкований Генпрокурору лише формально, але є повністю незалежним у своїх процесуальних рішеннях. Це усунуло можливість «злити» справу за вказівкою згори.</li>
+                        <li class="mb-2"><strong class="text-white">Підтримка обвинувачення у ВАКС.</strong> Прокурори САП представляють сторону обвинувачення у Вищому антикорупційному суді. Їхня якість роботи напряму впливає на те, чи «встоїть» справа проти армії дорогих адвокатів.</li>
+                    </ul>
 
-                <h3 class="text-2xl font-bold mb-4 text-white">Жорсткі реалії: Опір системи</h3>
-                <p class="text-lg mb-4 leading-relaxed">
-                    З першого дня свого існування зв'язка НАБУ-САП стала мішенню №1 для старої системи.
-                </p>
-                <ul class="list-disc list-inside mb-4 pl-4 text-lg leading-relaxed">
-                    <li class="mb-2"><span class="font-semibold">Медіа-атаки:</span> Дискредитація в ЗМІ, звинувачення у "політичних переслідуваннях" та "роботі на іноземні посольства".</li>
-                    <li class="mb-2"><span class="font-semibold">Судова війна:</span> До створення ВАКС, 99% справ "тонули" у старих судах. Після його створення, удари почали наносити через ОАСК та Конституційний Суд (спроби скасувати е-декларування, визнати неконституційним призначення директора НАБУ).</li>
-                    <li class="mb-2"><span class="font-semibold">Саботаж:</span> Затягування конкурсів на обрання керівників (особливо САП), спроби змінити законодавство, щоб "збити" підслідність НАБУ, тиск з боку інших правоохоронних органів.</li>
-                </ul>
-                <p class="text-lg mb-4 leading-relaxed">
-                    <span class="font-bold text-white">Висновок:</span> НАБУ і САП — це <span class="text-blue-300">високотехнологічний, незалежний тандем</span>, який вперше в історії України зробив топ-чиновників "досяжними" для правосуддя. Їхня робота — це щоденна війна проти системи, де кожен вирок є не просто юридичним актом, а тектонічним зсувом у суспільній свідомості.
-                </p>
+                    <h3 class="text-2xl font-semibold mt-8 mb-4 text-white">Жорсткі реалії: опір системи</h3>
+                    <div class="border-l-4 border-red-500/50 pl-6 py-2 bg-red-900/10 rounded-r-lg">
+                        <p class="text-gray-300 italic mb-4">
+                            З першого дня свого існування зв'язка НАБУ — САП стала мішенню № 1 для старої системи.
+                        </p>
+                        <ul class="list-disc list-outside mb-0 pl-6 text-gray-300 marker:text-red-500">
+                            <li class="mb-2"><strong class="text-white">Медіаатаки:</strong> дискредитація у ЗМІ, звинувачення в «політичних переслідуваннях» та «роботі на іноземні посольства».</li>
+                            <li class="mb-2"><strong class="text-white">Судова війна:</strong> до створення ВАКС 99 % справ «тонули» у старих судах. Після його створення удари почали завдавати через ОАСК та Конституційний Суд (спроби скасувати е-декларування, визнати неконституційним призначення директора НАБУ).</li>
+                            <li class="mb-2"><strong class="text-white">Саботаж:</strong> затягування конкурсів на обрання керівників (особливо САП), спроби змінити законодавство, щоб «збити» підслідність НАБУ, тиск з боку інших правоохоронних органів.</li>
+                        </ul>
+                    </div>
+                </article>
             </section>
 
             <!-- 5. ПАРАЛЕЛІ МІЖ КРАЇНАМИ -->
-            <section id="parallels" class="page-section hidden bg-gray-800 p-6 md:p-8 rounded-lg shadow-2xl">
-                <button class="back-btn mb-6 bg-blue-700 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow transition duration-300">
-                    &larr; Повернутися на головну
+            <section id="parallels" class="page-section hidden glass-panel p-8 md:p-12 rounded-2xl fade-in">
+                <button class="back-btn mb-8 flex items-center gap-2 text-blue-400 hover:text-blue-300 font-medium transition duration-300 group">
+                    <span class="group-hover:-translate-x-1 transition-transform">←</span> Повернутися на головну
                 </button>
-                <h2 class="text-3xl font-bold mb-6 text-blue-300">Різні шляхи, одна мета: Україна, Румунія, Польща</h2>
+                <h2 class="text-3xl md:text-4xl font-bold mb-8 text-blue-50 border-b border-gray-700 pb-4">Різні шляхи, одна мета: Україна, Румунія, Польща</h2>
                 
-                <p class="text-lg mb-4 leading-relaxed">
-                    Україна не є унікальною у своїй пострадянській корупційній хворобі. Досвід її західних сусідів, особливо Румунії та Польщі, є надзвичайно цінним — як у плані успіхів, так і в плані жорстких провалів.
-                </p>
+                <article class="prose prose-invert prose-lg max-w-none">
+                    <p class="text-gray-300">
+                        Україна не є унікальною у своїй пострадянській корупційній хворобі. Досвід її західних сусідів, особливо Румунії та Польщі, є надзвичайно цінним — як у плані успіхів, так і в плані жорстких провалів.
+                    </p>
 
-                <h3 class="text-2xl font-bold mb-4 text-white">Румунія: "Зірковий" приклад DNA</h3>
-                <ul class="list-disc list-inside mb-4 pl-4 text-lg leading-relaxed">
-                    <li class="mb-2"><span class="font-semibold">Спільний старт:</span> Як і Україна, Румунія у 90-х та на початку 2000-х була однією з найбільш корумпованих країн Європи.</li>
-                    <li class="mb-2"><span class="font-semibold">"Морквина" ЄС:</span> Потужний тиск Брюсселя як умова вступу до ЄС змусив Бухарест створити у 2002 році <span class="text-blue-300">Національну антикорупційну дирекцію (DNA)</span>.</li>
-                    <li class="mb-2"><span class="font-semibold">Українська паралель:</span> Модель DNA стала прямим прообразом для української зв'язки НАБУ+САП. Це спеціалізований орган слідства та прокуратури "під одним дахом".</li>
-                    <li class="mb-2"><span class="font-semibold">Жорсткий результат:</span> Під керівництвом легендарної Лаури Ковеші, DNA почала "полювання" на топ-чиновників. За 2013-2018 роки було засуджено тисячі посадовців, включно з прем'єр-міністром, десятками міністрів, депутатів та мерів.</li>
-                    <li class="mb-2"><span class="font-semibold">Відкат системи:</span> Успіх DNA спровокував шалений опір. Правляча партія у 2017-2019 роках, попри масові протести, "протягнула" через парламент та Конституційний суд зміни до законодавства, що де-факто декриміналізували багато корупційних злочинів та звільнили Ковеші.</li>
-                    <li class="mb-2"><span class="font-semibold text-white">Урок для України:</span> Успіх антикорупційних органів незворотній лише тоді, коли суспільство готове його захищати на вулицях, а судова система (особливо Конституційний Суд) є стійкою до політичного тиску.</li>
-                </ul>
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 my-8">
+                        <!-- Румунія -->
+                        <div class="bg-gray-900/50 p-6 rounded-xl border border-blue-900/50">
+                            <h3 class="text-2xl font-semibold mb-4 text-white flex items-center gap-3">
+                                <span class="text-3xl">🇷🇴</span> Румунія: «зірковий» приклад DNA
+                            </h3>
+                            <ul class="list-disc list-outside pl-6 text-gray-400 space-y-2 marker:text-blue-500">
+                                <li><strong class="text-white">Спільний старт:</strong> як і Україна, Румунія в 90-х та на початку 2000-х була однією з найбільш корумпованих країн Європи.</li>
+                                <li><strong class="text-white">«Морквина» ЄС:</strong> потужний тиск Брюсселя як умова вступу до ЄС змусив Бухарест створити у 2002 році <span class="text-blue-300 font-medium">Національну антикорупційну дирекцію (DNA)</span>.</li>
+                                <li><strong class="text-white">Українська паралель:</strong> модель DNA стала прямим прообразом для української зв'язки НАБУ + САП. Це спеціалізований орган слідства та прокуратури «під одним дахом».</li>
+                                <li><strong class="text-white">Жорсткий результат:</strong> під керівництвом легендарної Лаури Ковеші DNA почала «полювання» на топчиновників. За 2013–2018 роки було засуджено тисячі посадовців включно з прем'єр-міністром, десятками міністрів, депутатів та мерів.</li>
+                                <li><strong class="text-white">Відкат системи:</strong> успіх DNA спровокував шалений опір. Правляча партія у 2017–2019 роках, попри масові протести, «протягнула» через парламент та Конституційний Суд зміни до законодавства, що де-факто декриміналізували багато корупційних злочинів та звільнили Ковеші.</li>
+                            </ul>
+                        </div>
 
-                <h3 class="text-2xl font-bold mb-4 text-white">Польща: Політизація та демонтаж (CBA)</h3>
-                <ul class="list-disc list-inside mb-4 pl-4 text-lg leading-relaxed">
-                    <li class="mb-2"><span class="font-semibold">Інший шлях:</span> Польща створила своє <span class="text-blue-300">Центральне антикорупційне бюро (CBA)</span> у 2006 році. На відміну від DNA/НАБУ, воно було менш незалежним і більше схожим на спецслужбу під прямим контролем прем'єр-міністра.</li>
-                    <li class="mb-2"><span class="font-semibold">Політичний інструмент:</span> Після приходу до влади партії "Право і Справедливість" (PiS) у 2015 році, CBA та прокуратура стали інструментами тиску на опозицію та бізнес, водночас "закриваючи очі" на корупцію у власних лавах.</li>
-                    <li class="mb-2"><span class="font-semibold">Судова "реформа":</span> Паралельно PiS провела "реформу" судової системи, взявши під політичний контроль Конституційний трибунал та Верховний суд, що унеможливило будь-яку незалежну оцінку дій влади.</li>
-                    <li class="mb-2"><span class="font-semibold text-white">Урок для України:</span> Створення антикорупційного органу <span class="font-bold">без його максимальної політичної незалежності</span> (забезпеченої конкурсами, міжнародним наглядом) призводить до створення не "ліків", а "зброї", яку влада використає у своїх інтересах. Це доводить правильність обраної в Україні моделі НАБУ/САП, яка є ближчою до румунської, ніж до польської.</li>
-                </ul>
-                 <p class="text-lg mb-4 leading-relaxed">
-                    <span class="font-bold text-white">Висновок:</span> Українська модель увібрала уроки сусідів. Вона має незалежність румунської DNA (навіть більшу, завдяки ВАКС), але, як і в Румунії та Польщі, стикається з <span class="text-blue-300">постійними спробами політичного захоплення або демонтажу</span>.
-                </p>
+                        <!-- Польща -->
+                        <div class="bg-gray-900/50 p-6 rounded-xl border border-red-900/50">
+                            <h3 class="text-2xl font-semibold mb-4 text-white flex items-center gap-3">
+                                <span class="text-3xl">🇵🇱</span> Польща: політизація та демонтаж (CBA)
+                            </h3>
+                            <ul class="list-disc list-outside pl-6 text-gray-400 space-y-2 marker:text-red-500">
+                                <li><strong class="text-white">Інший шлях:</strong> Польща створила своє <span class="text-blue-300 font-medium">Центральне антикорупційне бюро (CBA)</span> у 2006 році. На відміну від DNA/НАБУ, воно було менш незалежним і більше схожим на спецслужбу під прямим контролем прем'єр-міністра.</li>
+                                <li><strong class="text-white">Політичний інструмент:</strong> після приходу до влади партії «Право і справедливість» (PiS) у 2015 році CBA та прокуратура стали інструментами тиску на опозицію та бізнес, водночас «закриваючи очі» на корупцію у власних лавах.</li>
+                                <li><strong class="text-white">Судова «реформа»:</strong> паралельно PiS провела «реформу» судової системи, взявши під політичний контроль Конституційний Трибунал та Верховний Суд, що унеможливило будь-яку незалежну оцінку дій влади.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="bg-blue-900/30 border border-blue-800/50 p-6 rounded-lg">
+                        <p class="text-blue-100 m-0">
+                            <strong class="text-white uppercase tracking-wider text-sm block mb-2">Висновок</strong>
+                            Українська модель увібрала уроки сусідів. Вона має незалежність румунської DNA (навіть більшу завдяки ВАКС), але, як і в Румунії та Польщі, стикається з <span class="text-blue-300 font-medium">постійними спробами політичного захоплення або демонтажу</span>.
+                        </p>
+                    </div>
+                </article>
             </section>
-            
-            <!-- 6. МЕТОДИКИ ВИРІШЕННЯ ТА ЗАПОБІГАННЯ -->
-            <section id="methods" class="page-section hidden bg-gray-800 p-6 md:p-8 rounded-lg shadow-2xl">
-                <button class="back-btn mb-6 bg-blue-700 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow transition duration-300">
-                    &larr; Повернутися на головну
+
+            <!-- 6. МЕТОДИКИ (ВІДНОВЛЕНО + Gemini) -->
+            <section id="methods" class="page-section hidden glass-panel p-8 md:p-12 rounded-2xl fade-in">
+                <button class="back-btn mb-8 flex items-center gap-2 text-blue-400 hover:text-blue-300 font-medium transition duration-300 group">
+                    <span class="group-hover:-translate-x-1 transition-transform">←</span> Повернутися на головну
                 </button>
-                <h2 class="text-3xl font-bold mb-6 text-blue-300">"Батіг і пряник": Арсенал боротьби з корупцією</h2>
+                <h2 class="text-3xl md:text-4xl font-bold mb-8 text-blue-50 border-b border-gray-700 pb-4">«Батіг і пряник»: арсенал боротьби з корупцією</h2>
                 
-                <p class="text-lg mb-4 leading-relaxed">
-                    Боротьба з корупцією ніколи не виграється лише в'язницями. Це комплексна стратегія, що стоїть на трьох китах: <span class="text-white">жорстке покарання, розумна превенція та зміна суспільної свідомості</span>. Сучасні методики, що впроваджуються в Україні, є яскравим прикладом цього балансу.
-                </p>
+                <article class="prose prose-invert prose-lg max-w-none">
+                    <p class="text-gray-300">
+                        Боротьба з корупцією ніколи не виграється лише в'язницями. Це комплексна стратегія, що стоїть на трьох китах: <span class="text-white">жорстке покарання, розумна превенція та зміна суспільної свідомості</span>. Сучасні методики, що впроваджуються в Україні, є яскравим прикладом цього балансу.
+                    </p>
 
-                <h3 class="text-2xl font-bold mb-4 text-white">1. "Батіг": Невідворотність покарання</h3>
-                <p class="text-lg mb-4 leading-relaxed">
-                    Мета — зробити корупцію <span class="font-bold">надзвичайно ризикованою та невигідною</span>.
-                </p>
-                <ul class="list-disc list-inside mb-4 pl-4 text-lg leading-relaxed">
-                    <li class="mb-2"><span class="font-semibold">Спеціалізований ланцюг:</span> Модель <span class="text-blue-300">НАБУ (слідство) → САП (обвинувачення) → ВАКС (суд)</span>. Це замкнений цикл, що усуває можливість "порєшать" справу на будь-якому з етапів.</li>
-                    <li class="mb-2"><span class="font-semibold">Криміналізація незаконного збагачення:</span> Кримінальна відповідальність за володіння активами, які чиновник не може пояснити своїми легальними доходами. Це змушує корупціонерів "виводити" гроші з тіні.</li>
-                    <li class="mb-2"><span class="font-semibold">Конфіскація та спецконфіскація:</span> Не просто посадити, а <span class="text-white">забрати вкрадене</span>. Сюди ж відноситься робота АРМА (Агентства з розшуку та менеджменту активів) для управління арештованим майном.</li>
-                    <li class="mb-2"><span class="font-semibold">Інститут викривачів:</span> Законодавчий захист та винагорода (до 10% від предмета корупції) для людей, які повідомляють про масштабні корупційні схеми.</li>
-                </ul>
+                    <div class="space-y-8 mt-8">
+                        <div class="flex flex-col md:flex-row gap-6">
+                            <div class="md:w-1/3">
+                                <h3 class="text-2xl font-semibold text-red-300 mb-2">1. «Батіг»: невідворотність покарання</h3>
+                                <p class="text-sm text-gray-400">Мета — зробити корупцію <strong class="text-white">надзвичайно ризикованою та невигідною</strong>.</p>
+                            </div>
+                            <div class="md:w-2/3 bg-gray-900/30 p-5 rounded-xl border border-gray-700">
+                                <ul class="list-disc list-outside pl-6 text-gray-300 space-y-2 marker:text-red-500">
+                                    <li><strong class="text-white">Спеціалізований ланцюг:</strong> модель <span class="text-blue-300 font-medium">НАБУ (слідство) → САП (обвинувачення) → ВАКС (суд)</span>. Це замкнений цикл, що усуває можливість «порєшать» справу на будь-якому з етапів.</li>
+                                    <li><strong class="text-white">Криміналізація незаконного збагачення:</strong> кримінальна відповідальність за володіння активами, які чиновник не може пояснити своїми легальними доходами. Це змушує корупціонерів «виводити» гроші з тіні.</li>
+                                    <li><strong class="text-white">Конфіскація та спецконфіскація:</strong> не просто посадити, а <span class="text-white">забрати вкрадене</span>. Сюди ж належить робота АРМА для управління арештованим майном.</li>
+                                    <li><strong class="text-white">Інститут викривачів:</strong> законодавчий захист та винагорода (до 10 % від предмета корупції) для людей, які повідомляють про масштабні корупційні схеми.</li>
+                                </ul>
+                            </div>
+                        </div>
 
-                <h3 class="text-2xl font-bold mb-4 text-white">2. "Пряник": Розумна превенція (Запобігання)</h3>
-                <p class="text-lg mb-4 leading-relaxed">
-                    Мета — усунути самі <span class="font-bold">умови та можливості</span> для корупції. Це дешевше і ефективніше, ніж розслідування.
-                </p>
-                <ul class="list-disc list-inside mb-4 pl-4 text-lg leading-relaxed">
-                    <li class="mb-2"><span class="font-semibold text-blue-300">Радикальна прозорість (Transparency):</span>
-                        <ul class="list-decimal list-inside ml-6 mt-2">
-                            <li><span class="font-semibold">Prozorro:</span> Система електронних державних закупівель. Переведення тендерів в онлайн-формат, де "всі бачать все", ліквідувало цілі пласти "відкатів" на закупівлях.</li>
-                            <li><span class="font-semibold">Електронне декларування (НАЗК):</span> Обов'язок всіх чиновників публікувати свої доходи, майно та витрати. Це дозволяє журналістам-розслідувачам та НАЗК виявляти невідповідності.</li>
-                            <li><span class="font-semibold">Відкриті реєстри:</span> Доступ до реєстрів власності, землі, бенефіціарів компаній.</li>
-                        </ul>
-                    </li>
-                    <li class="mb-2"><span class="font-semibold text-blue-300">Дерегуляція та "Діджиталізація":</span>
-                        <ul class="list-decimal list-inside ml-6 mt-2">
-                            <li>Найкращий спосіб побороти корупцію — <span class="text-white">знищити чиновника</span> як функцію.</li>
-                            <li><span class="font-semibold">Портал "Дія":</span> Переведення послуг (отримання довідки, реєстрація бізнесу, водійське посвідчення) в онлайн прибирає "контакт" людини з чиновником, а отже, і предмет для хабаря.</li>
-                            <li>Скасування непотрібних ліцензій, дозволів та перевірок.</li>
-                        </ul>
-                    </li>
-                     <li class="mb-2"><span class="font-semibold">Антикорупційна експертиза:</span> НАЗК проводить експертизу законопроектів на наявність "корупційних лазівок" ще до їх ухвалення.</li>
-                </ul>
-                
-                <h3 class="text-2xl font-bold mb-4 text-white">3. Зміна свідомості: Нульова толерантність</h3>
-                <p class="text-lg mb-4 leading-relaxed">
-                    Найскладніший рівень. Це марафон, а не спринт.
-                </p>
-                <ul class="list-disc list-inside mb-4 pl-4 text-lg leading-relaxed">
-                    <li class="mb-2"><span class="font-semibold">Роль медіа та розслідувачів:</span> Проекти як "Bihus.Info" чи "Схеми" створюють <span class="text-white">токсичну атмосферу</span> навколо корупціонерів. Навіть без кримінальної справи, репутаційні втрати стають болючими.</li>
-                    <li class="mb-2"><span class="font-semibold">Освітні програми:</span> Впровадження антикорупційних уроків у школах та університетах. Формування розуміння, що "данина" лікарю чи викладачу — це не "подяка", а частина тієї ж системи, що й "відкати" на мільярди.</li>
-                </ul>
+                        <div class="flex flex-col md:flex-row gap-6">
+                            <div class="md:w-1/3">
+                                <h3 class="text-2xl font-semibold text-green-300 mb-2">2. «Пряник»: розумна превенція (запобігання)</h3>
+                                <p class="text-sm text-gray-400">Мета — усунути самі <strong class="text-white">умови та можливості</strong> для корупції. Це дешевше й ефективніше, ніж розслідування.</p>
+                            </div>
+                            <div class="md:w-2/3 bg-gray-900/30 p-5 rounded-xl border border-gray-700">
+                                <ul class="list-disc list-outside pl-6 text-gray-300 space-y-2 marker:text-green-500">
+                                    <li><strong class="text-white">Радикальна прозорість (Transparency):</strong>
+                                        <ul class="list-none mt-2 text-gray-400 pl-4 border-l border-green-700/50 space-y-2">
+                                            <li><span class="text-gray-200 font-medium">Prozorro:</span> система електронних державних закупівель. Переведення тендерів в онлайн-формат, де «всі бачать усе», ліквідувало цілі пласти «відкатів» на закупівлях.</li>
+                                            <li><span class="text-gray-200 font-medium">Електронне декларування (НАЗК):</span> обов'язок усіх чиновників публікувати свої доходи, майно та витрати.</li>
+                                            <li><span class="text-gray-200 font-medium">Відкриті реєстри:</span> доступ до реєстрів власності, землі, бенефіціарів компаній.</li>
+                                        </ul>
+                                    </li>
+                                    <li><strong class="text-white">Дерегуляція та «діджиталізація»:</strong> найкращий спосіб побороти корупцію — <span class="text-white">знищити чиновника</span> як функцію. Портал «Дія» прибирає «контакт» людини з чиновником, а отже, і предмет для хабаря.</li>
+                                    <li><strong class="text-white">Антикорупційна експертиза:</strong> НАЗК проводить експертизу законопроєктів на наявність «корупційних лазівок» ще до їх ухвалення.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col md:flex-row gap-6">
+                            <div class="md:w-1/3">
+                                <h3 class="text-2xl font-semibold text-blue-300 mb-2">3. Зміна свідомості: нульова толерантність</h3>
+                                <p class="text-sm text-gray-400">Найскладніший рівень. Це марафон, а не спринт.</p>
+                            </div>
+                            <div class="md:w-2/3 bg-gray-900/30 p-5 rounded-xl border border-gray-700">
+                                <ul class="list-disc list-outside pl-6 text-gray-300 space-y-2 marker:text-blue-500">
+                                    <li><strong class="text-white">Роль медіа та розслідувачів:</strong> проєкти, як-от «Bihus.Info» чи «Схеми», створюють <span class="text-white">токсичну атмосферу</span> навколо корупціонерів. Навіть без кримінальної справи репутаційні втрати стають болючими.</li>
+                                    <li><strong class="text-white">Освітні програми:</strong> впровадження антикорупційних уроків у школах та університетах. Формування розуміння, що «данина» лікарю чи викладачу — це не «подяка», а частина тієї самої системи, що й «відкати» на мільярди.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </article>
 
                 <!-- ✨ GEMINI FEATURE: Пояснення -->
-                <div class="mt-8 border-t border-gray-700 pt-6">
-                    <h4 class="text-2xl font-bold mb-4 text-yellow-300">✨ Потрібне простіше пояснення?</h4>
-                    <p class="mb-4 text-lg">Натисніть кнопку, щоб Gemini AI пояснив концепцію "Батога і Пряника" простими словами.</p>
-                    <button id="gemini-methods-btn" class="bg-yellow-600 hover:bg-yellow-500 text-white font-semibold py-2 px-4 rounded-lg shadow transition duration-300">
-                        ✨ Пояснити "Батіг і Пряник"
-                    </button>
-                    <div id="gemini-methods-result" class="mt-4 p-4 bg-gray-900 rounded-lg hidden text-lg leading-relaxed">
-                        <!-- Результат Gemini буде тут -->
+                <div class="mt-12 border-t border-gray-700 pt-8">
+                    <div class="bg-yellow-900/20 border border-yellow-700/50 p-6 rounded-xl">
+                        <h4 class="text-2xl font-bold mb-4 text-yellow-200">✨ Потрібне простіше пояснення?</h4>
+                        <button id="gemini-methods-btn" class="bg-yellow-700 hover:bg-yellow-600 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition duration-300 flex items-center gap-2">
+                            <span>✨</span> Пояснити «батіг і пряник»
+                        </button>
+                        <div id="gemini-methods-result" class="mt-6 p-6 bg-gray-900/80 rounded-lg hidden text-lg leading-relaxed border border-yellow-900/50"></div>
                     </div>
                 </div>
-
             </section>
-            
+
             <!-- 7. ВАЖЛИВІСТЬ ЗАПОБІГАННЯ КОРУПЦІЇ -->
-            <section id="importance" class="page-section hidden bg-gray-800 p-6 md:p-8 rounded-lg shadow-2xl">
-                <button class="back-btn mb-6 bg-blue-700 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow transition duration-300">
-                    &larr; Повернутися на головну
+            <section id="importance" class="page-section hidden glass-panel p-8 md:p-12 rounded-2xl fade-in">
+                <button class="back-btn mb-8 flex items-center gap-2 text-blue-400 hover:text-blue-300 font-medium transition duration-300 group">
+                    <span class="group-hover:-translate-x-1 transition-transform">←</span> Повернутися на головну
                 </button>
-                <h2 class="text-3xl font-bold mb-6 text-blue-300">Питання виживання: Чому корупція — це пряма загроза існуванню</h2>
+                <h2 class="text-3xl md:text-4xl font-bold mb-8 text-blue-50 border-b border-gray-700 pb-4">Питання виживання: чому корупція — це пряма загроза існуванню</h2>
                 
-                <p class="text-lg mb-4 leading-relaxed">
-                    В Україні, особливо в умовах повномасштабної війни, корупція перестала бути лише питанням економіки чи справедливості. Вона стала <span class="font-bold text-red-400">питанням національної безпеки та фізичного виживання нації</span>.
-                </p>
-                <p class="text-lg mb-4 leading-relaxed">
-                    Ми звикли думати, що корупція — це коли "крадуть гроші". Але це примітивне розуміння. Жорстка правда полягає в тому, що корупція <span class="font-bold text-white">краде майбутнє, можливості та життя</span>.
-                </p>
+                <article class="prose prose-invert prose-lg max-w-none">
+                    <p class="text-gray-300">
+                        В Україні, особливо в умовах повномасштабної війни, корупція перестала бути лише питанням економіки чи справедливості. Вона стала <span class="font-bold text-red-400">питанням національної безпеки та фізичного виживання нації</span>.
+                    </p>
+                    <p class="text-gray-300">
+                        Ми звикли думати, що корупція — це коли «крадуть гроші». Але це примітивне розуміння. Жорстка правда полягає в тому, що корупція <span class="font-bold text-white">краде майбутнє, можливості та життя</span>.
+                    </p>
 
-                <h3 class="text-2xl font-bold mb-4 text-white">1. Корупція — це зброя, що вбиває (Національна безпека)</h3>
-                <ul class="list-disc list-inside mb-4 pl-4 text-lg leading-relaxed">
-                    <li class="mb-2">Кожен долар, вкрадений на закупівлі снарядів, бронежилетів чи турнікетів — це <span class="text-white">пряма допомога ворогу</span>. Це не куплені дрони, не збудовані укріплення, не захищені життя солдат.</li>
-                    <li class="mb-2">Корупція в оборонному секторі, яка процвітала десятиліттями до 2014-го (і частково після), є однією з причин, чому ворог наважився на вторгнення, розраховуючи на слабку, "розпиляну" армію.</li>
-                    <li class="mb-2">Корупція на митниці чи в дозвільних органах — це "дірки" в санкційному режимі, через які ворог може отримувати компоненти для своїх ракет.</li>
-                </ul>
-
-                <h3 class="text-2xl font-bold mb-4 text-white">2. Корупція — це демотивація (Суспільний договір)</h3>
-                <ul class="list-disc list-inside mb-4 pl-4 text-lg leading-relaxed">
-                    <li class="mb-2">Чому громадянин має віддавати останнє на донати, платити податки і йти до військкомату, якщо він бачить, що представник влади в цей час купує маєток в Іспанії чи "відмазує" сина за кордон?</li>
-                    <li class="mb-2">Корупція руйнує <span class="text-blue-300">довіру</span> — головний ресурс будь-якої держави у кризовий час. Вона роз'їдає суспільство зсередини, створюючи прірву між "тими, хто воює і волонтерить" і "тими, хто краде".</li>
-                </ul>
-
-                <h3 class="text-2xl font-bold mb-4 text-white">3. Корупція — це закриті двері (Міжнародна інтеграція)</h3>
-                <ul class="list-disc list-inside mb-4 pl-4 text-lg leading-relaxed">
-                    <li class="mb-2">Наші партнери в ЄС та НАТО дають нам зброю та гроші, але вони не наївні. Вони вимагають <span class="text-white">підзвітності та прозорості</span>.</li>
-                    <li class="mb-2">Провал антикорупційних реформ — це гарантована зупинка фінансової та військової допомоги. Це блокування шляху до ЄС. Жоден інвестор не прийде у країну, де суд можна купити, а його активи — "віджати".</li>
-                    <li class="mb-2">Без інвестицій та допомоги ми не зможемо відновити економіку після війни. Ми залишимось бідною, зруйнованою та вразливою "сірою зоною", яка стане легкою здобиччю для ворога в майбутньому.</li>
-                </ul>
-                
-                <p class="text-lg mb-4 leading-relaxed mt-6">
-                    <span class="font-bold text-white">Висновок:</span>
-                    Запобігання корупції — це не абстрактне "покращення". Це <span class="font-bold text-blue-300">вакцина</span>. Це щеплення, яке робить державний організм сильним. Це фундамент, на якому можна збудувати справедливу, багату та захищену країну.
-                </p>
-                <p class="text-lg mb-4 leading-relaxed font-bold text-red-300">
-                    У 21-му столітті, а особливо під час війни, корупція є державною зрадою. Без винятку. І ставлення до неї має бути відповідним.
-                </p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+                        <div class="bg-gray-900/50 p-6 rounded-xl border border-red-900/30">
+                            <div class="text-4xl mb-4">🛡️</div>
+                            <h3 class="text-xl font-bold text-white mb-3">1. Зброя, що вбиває</h3>
+                            <p class="text-gray-400 text-sm">Кожен долар, вкрадений на закупівлі снарядів, бронежилетів чи турнікетів, — це <span class="text-white">пряма допомога ворогу</span>. Це не куплені дрони, не збудовані укріплення, не захищені життя солдатів.</p>
+                        </div>
+                        <div class="bg-gray-900/50 p-6 rounded-xl border border-red-900/30">
+                            <div class="text-4xl mb-4">🤝</div>
+                            <h3 class="text-xl font-bold text-white mb-3">2. Демотивація суспільства</h3>
+                            <p class="text-gray-400 text-sm">Корупція руйнує <span class="text-blue-300 font-medium">довіру</span> — головний ресурс будь-якої держави в кризовий час. Вона роз'їдає суспільство зсередини, створюючи прірву між «тими, хто воює і волонтерить» і «тими, хто краде».</p>
+                        </div>
+                        <div class="bg-gray-900/50 p-6 rounded-xl border border-red-900/30">
+                            <div class="text-4xl mb-4">🌍</div>
+                            <h3 class="text-xl font-bold text-white mb-3">3. Закриті двері на Захід</h3>
+                            <p class="text-gray-400 text-sm">Провал антикорупційних реформ — це гарантована зупинка фінансової та військової допомоги. Жоден інвестор не прийде в країну, де суд можна купити, а його активи — «віджати».</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-red-900/20 border-l-4 border-red-500 p-6 rounded-r-lg mt-8">
+                        <p class="text-lg mb-4 leading-relaxed">
+                            <strong class="text-white uppercase tracking-wider text-sm block mb-2">Висновок</strong>
+                            Запобігання корупції — це не абстрактне «покращення». Це <span class="font-bold text-blue-300">вакцина</span>. Це щеплення, яке робить державний організм сильним. Це фундамент, на якому можна збудувати справедливу, багату та захищену країну.
+                        </p>
+                        <p class="text-lg leading-relaxed font-bold text-red-300 m-0">
+                            У XXI столітті, а особливо під час війни, корупція є державною зрадою. Без винятку. І ставлення до неї має бути відповідним.
+                        </p>
+                    </div>
+                </article>
             </section>
-            
+
             <!-- 8. ВИКОРИСТАНІ ДЖЕРЕЛА -->
-            <section id="sources" class="page-section hidden bg-gray-800 p-6 md:p-8 rounded-lg shadow-2xl">
-                <button class="back-btn mb-6 bg-blue-700 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow transition duration-300">
-                    &larr; Повернутися на головну
+            <section id="sources" class="page-section hidden glass-panel p-8 md:p-12 rounded-2xl fade-in">
+                <button class="back-btn mb-8 flex items-center gap-2 text-blue-400 hover:text-blue-300 font-medium transition duration-300 group">
+                    <span class="group-hover:-translate-x-1 transition-transform">←</span> Повернутися на головну
                 </button>
-                <h2 class="text-3xl font-bold mb-6 text-blue-300">Використані джерела</h2>
+                <h2 class="text-3xl md:text-4xl font-bold mb-8 text-blue-50 border-b border-gray-700 pb-4">Використані джерела</h2>
                 
-                <p class="text-lg mb-4 leading-relaxed">
+                <p class="text-lg mb-8 leading-relaxed text-gray-300">
                     Цей сайт базується на аналізі відкритої інформації з офіційних законодавчих баз, наукових публікацій та звітів авторитетних міжнародних і українських організацій.
                 </p>
 
-                <h3 class="text-2xl font-bold mb-4 text-white">Законодавство та офіційні органи України</h3>
-                <ul class="list-disc list-inside mb-6 pl-4 text-lg leading-relaxed">
-                    <li class="mb-2">
-                        <a href="https://zakon.rada.gov.ua/laws/show/1700-18" target="_blank" rel="noopener noreferrer" class="text-blue-300 hover:text-blue-200 underline transition duration-300">
-                            Закон України "Про запобігання корупції" (Відомості Верховної Ради, 2014).
-                        </a>
-                    </li>
-                    <li class="mb-2">
-                        <a href="https://zakon.rada.gov.ua/laws/show/1698-18" target="_blank" rel="noopener noreferrer" class="text-blue-300 hover:text-blue-200 underline transition duration-300">
-                            Закон України "Про Національне антикорупційне бюро України" (Відомості Верховної Ради, 2015).
-                        </a>
-                    </li>
-                     <li class="mb-2">
-                        <a href="https://zakon.rada.gov.ua/laws/show/2447-19" target="_blank" rel="noopener noreferrer" class="text-blue-300 hover:text-blue-200 underline transition duration-300">
-                            Закон України "Про Вищий антикорупційний суд" (Відомості Верховної Ради, 2018).
-                        </a>
-                    </li>
-                    <li class="mb-2">
-                        <a href="https://nabu.gov.ua/reports" target="_blank" rel="noopener noreferrer" class="text-blue-300 hover:text-blue-200 underline transition duration-300">
-                            Офіційні звіти Національного антикорупційного бюро України (НАБУ).
-                        </a>
-                    </li>
-                    <li class="mb-2">
-                        <a href="https://nazk.gov.ua/uk/derzhavna-antykoruptsijna-programa/" target="_blank" rel="noopener noreferrer" class="text-blue-300 hover:text-blue-200 underline transition duration-300">
-                            Державна антикорупційна програма (Національне агентство з питань запобігання корупції).
-                        </a>
-                    </li>
-                </ul>
+                <div class="space-y-8">
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-4 text-white">Законодавство та офіційні органи України</h3>
+                        <ul class="list-none space-y-3">
+                            <li>
+                                <a href="https://zakon.rada.gov.ua/laws/show/1700-18" target="_blank" rel="noopener noreferrer" class="flex items-start gap-3 text-blue-300 hover:text-blue-200 transition duration-300 group">
+                                    <span class="mt-1 opacity-50 group-hover:opacity-100">🔗</span>
+                                    <span>Закон України «Про запобігання корупції» (Відомості Верховної Ради, 2014).</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://zakon.rada.gov.ua/laws/show/1698-18" target="_blank" rel="noopener noreferrer" class="flex items-start gap-3 text-blue-300 hover:text-blue-200 transition duration-300 group">
+                                    <span class="mt-1 opacity-50 group-hover:opacity-100">🔗</span>
+                                    <span>Закон України «Про Національне антикорупційне бюро України» (Відомості Верховної Ради, 2015).</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://zakon.rada.gov.ua/laws/show/2447-19" target="_blank" rel="noopener noreferrer" class="flex items-start gap-3 text-blue-300 hover:text-blue-200 transition duration-300 group">
+                                    <span class="mt-1 opacity-50 group-hover:opacity-100">🔗</span>
+                                    <span>Закон України «Про Вищий антикорупційний суд» (Відомості Верховної Ради, 2018).</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://nabu.gov.ua/reports" target="_blank" rel="noopener noreferrer" class="flex items-start gap-3 text-blue-300 hover:text-blue-200 transition duration-300 group">
+                                    <span class="mt-1 opacity-50 group-hover:opacity-100">🔗</span>
+                                    <span>Офіційні звіти Національного антикорупційного бюро України (НАБУ).</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://nazk.gov.ua/uk/derzhavna-antykoruptsijna-programa/" target="_blank" rel="noopener noreferrer" class="flex items-start gap-3 text-blue-300 hover:text-blue-200 transition duration-300 group">
+                                    <span class="mt-1 opacity-50 group-hover:opacity-100">🔗</span>
+                                    <span>Державна антикорупційна програма (Національне агентство з питань запобігання корупції).</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
 
-                <h3 class="text-2xl font-bold mb-4 text-white">Міжнародні конвенції та інституції</h3>
-                <ul class="list-disc list-inside mb-6 pl-4 text-lg leading-relaxed">
-                    <li class="mb-2">
-                        <a href="https://www.unodc.org/unodc/en/corruption/uncac.html" target="_blank" rel="noopener noreferrer" class="text-blue-300 hover:text-blue-200 underline transition duration-300">
-                            Конвенція Організації Об'єднаних Націй проти корупції (UNCAC).
-                        </a>
-                    </li>
-                    <li class="mb-2">
-                        <a href="https://www.coe.int/en/web/greco/home" target="_blank" rel="noopener noreferrer" class="text-blue-300 hover:text-blue-200 underline transition duration-300">
-                            Група держав проти корупції (GRECO) - Рада Європи.
-                        </a>
-                    </li>
-                    <li class="mb-2">
-                        <a href="https://www.oecd.org/corruption/anti-bribery/" target="_blank" rel="noopener noreferrer" class="text-blue-300 hover:text-blue-200 underline transition duration-300">
-                            Конвенція OECD про боротьбу з підкупом іноземних посадових осіб у міжнародних ділових операціях.
-                        </a>
-                    </li>
-                    <li class="mb-2">
-                        <a href="https://www.imf.org/en/Topics/corruption" target="_blank" rel="noopener noreferrer" class="text-blue-300 hover:text-blue-200 underline transition duration-300">
-                            Аналітичні матеріали Міжнародного валютного фонду (МВФ) щодо впливу корупції на економіку.
-                        </a>
-                    </li>
-                </ul>
-
-                <h3 class="text-2xl font-bold mb-4 text-white">Наукова та аналітична література</h3>
-                <ul class="list-disc list-inside mb-6 pl-4 text-lg leading-relaxed">
-                    <li class="mb-2">
-                        <a href="https://academic.oup.com/book/5248" target="_blank" rel="noopener noreferrer" class="text-blue-300 hover:text-blue-200 underline transition duration-300">
-                            Mungiu-Pippidi, A. (2015). <span class="italic">The Quest for Good Governance: How Societies Develop Control of Corruption.</span> Cambridge University Press.
-                        </a>
-                    </li>
-                     <li class="mb-2">
-                        <a href="https://www.tandfonline.com/doi/full/10.1080/09668136.2017.1302996" target="_blank" rel="noopener noreferrer" class="text-blue-300 hover:text-blue-200 underline transition duration-300">
-                            Vlăduțescu, Ș. (2017). <span class="italic">The Romanian Anti-Corruption Model.</span> Europe-Asia Studies.
-                        </a>
-                    </li>
-                    <li class="mb-2">
-                        <a href="https://www.ti-ukraine.org/research/" target="_blank" rel="noopener noreferrer" class="text-blue-300 hover:text-blue-200 underline transition duration-300">
-                            Дослідження та аналітика Transparency International Ukraine.
-                        </a>
-                    </li>
-                </ul>
-
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-4 text-white">Міжнародні конвенції та інституції</h3>
+                        <ul class="list-none space-y-3">
+                            <li>
+                                <a href="https://www.unodc.org/unodc/en/corruption/uncac.html" target="_blank" rel="noopener noreferrer" class="flex items-start gap-3 text-blue-300 hover:text-blue-200 transition duration-300 group">
+                                    <span class="mt-1 opacity-50 group-hover:opacity-100">🔗</span>
+                                    <span>Конвенція Організації Об'єднаних Націй проти корупції (UNCAC).</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.coe.int/en/web/greco/home" target="_blank" rel="noopener noreferrer" class="flex items-start gap-3 text-blue-300 hover:text-blue-200 transition duration-300 group">
+                                    <span class="mt-1 opacity-50 group-hover:opacity-100">🔗</span>
+                                    <span>Група держав проти корупції (GRECO) — Рада Європи.</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.oecd.org/corruption/anti-bribery/" target="_blank" rel="noopener noreferrer" class="flex items-start gap-3 text-blue-300 hover:text-blue-200 transition duration-300 group">
+                                    <span class="mt-1 opacity-50 group-hover:opacity-100">🔗</span>
+                                    <span>Конвенція OECD про боротьбу з підкупом іноземних посадових осіб у міжнародних ділових операціях.</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </section>
 
             <!-- 9. GEMINI CASE STUDY GENERATOR -->
-            <section id="gemini-case" class="page-section hidden bg-gray-800 p-6 md:p-8 rounded-lg shadow-2xl">
-                <button class="back-btn mb-6 bg-blue-700 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow transition duration-300">
-                    &larr; Повернутися на головну
+            <section id="gemini-case" class="page-section hidden glass-panel p-8 md:p-12 rounded-2xl fade-in">
+                <button class="back-btn mb-8 flex items-center gap-2 text-blue-400 hover:text-blue-300 font-medium transition duration-300 group">
+                    <span class="group-hover:-translate-x-1 transition-transform">←</span> Повернутися на головну
                 </button>
-                <h2 class="text-3xl font-bold mb-6 text-yellow-300">✨ Генератор Гіпотетичних Справ</h2>
-                
-                <p class="text-lg mb-4 leading-relaxed">
-                    Введіть короткий опис для створення гіпотетичної, але реалістичної справи про топ-корупцію. Gemini згенерує фабулу справи, показуючи, як могли б діяти НАБУ, САП та ВАКС.
-                </p>
-
-                <div class="mb-4">
-                    <label for="case-prompt" class="block text-sm font-medium text-gray-300 mb-2">Тема справи (наприклад: "схема на закупівлі ліків", "відкат на будівництві", "хабар за посаду"):</label>
-                    <input type="text" id="case-prompt" class="w-full p-3 bg-gray-900 text-white border border-gray-700 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:outline-none" placeholder="...наприклад, 'схема на закупівлі ліків'">
+                <h2 class="text-3xl font-bold mb-8 text-yellow-300">✨ Генератор гіпотетичних справ</h2>
+                <p class="text-lg mb-6 leading-relaxed text-gray-300">Введіть тему для створення фабули...</p>
+                <div class="mb-6">
+                    <input type="text" id="case-prompt" class="w-full p-4 bg-gray-900/80 text-white border border-gray-600 rounded-xl focus:border-yellow-500 transition placeholder-gray-600" placeholder="...наприклад, «схема на закупівлі ліків»">
                 </div>
+                <button id="gemini-case-btn" class="bg-yellow-700 hover:bg-yellow-600 text-white font-bold py-3 px-8 rounded-xl w-full md:w-auto">✨ Згенерувати справу</button>
+                <div id="gemini-case-result" class="mt-8 p-6 bg-gray-900/80 rounded-xl shadow-inner hidden border border-yellow-900/50"></div>
+            </section>
 
-                <button id="gemini-case-btn" class="bg-yellow-600 hover:bg-yellow-500 text-white font-bold py-3 px-6 rounded-lg shadow-xl transition duration-300">
-                    ✨ Згенерувати Справу
+            <!-- ОСТАННІ НОВИНИ (Сторінка) -->
+            <section id="news-ua" class="page-section hidden glass-panel p-8 md:p-12 rounded-2xl fade-in">
+                <button class="back-btn mb-8 text-red-400 hover:text-red-300 flex items-center gap-2 transition group">
+                    <span class="group-hover:-translate-x-1 transition">←</span> На головну
                 </button>
+                <h2 class="text-3xl font-black text-red-100 mb-8 border-b border-red-900/50 pb-4">
+                    🔥 Антикорупційний фронт: хроніка (Жовтень–Листопад 2025)
+                </h2>
 
-                <div id="gemini-case-result" class="mt-6 p-4 bg-gray-900 rounded-lg shadow-inner hidden">
-                    <!-- Сюди буде завантажено результат -->
+                <div class="relative border-l-2 border-gray-700 ml-4 space-y-12">
+                    
+                    <!-- Новина 1 (Requested by User) -->
+                    <div class="timeline-item pl-8 relative fade-in delay-100">
+                        <span class="text-red-400 font-mono text-sm font-bold block mb-1">26 листопада 2025</span>
+                        <h3 class="text-xl font-bold text-white mb-2">Обшуки НАБУ у керівництва Офісу Президента</h3>
+                        <p class="text-gray-400 text-sm">
+                            Детективи НАБУ спільно з прокурорами САП провели резонансні слідчі дії (обшуки) у кабінеті керівника Офісу Президента Андрія Єрмака. Справа стосується ймовірного витоку інформації про стратегічні оборонні закупівлі. Подія викликала безпрецедентний резонанс у суспільстві та західних ЗМІ.
+                        </p>
+                    </div>
+
+                    <!-- Новина 2 -->
+                    <div class="timeline-item pl-8 relative fade-in delay-200">
+                        <span class="text-blue-400 font-mono text-sm font-bold block mb-1">25 листопада 2025</span>
+                        <h3 class="text-xl font-bold text-white mb-2">Викрито масштабну схему на Донеччині (140 млн грн)</h3>
+                        <p class="text-gray-400 text-sm">
+                            НАБУ і САП викрили організовану групу на чолі з керівником департаменту Донецької ОДА. Чиновники привласнили понад 140 мільйонів гривень, призначених для забезпечення теплом та водою прифронтових міст. Підозрюваних затримано.
+                        </p>
+                    </div>
+
+                    <!-- Новина 3 -->
+                    <div class="timeline-item pl-8 relative fade-in delay-200">
+                        <span class="text-green-400 font-mono text-sm font-bold block mb-1">17 листопада 2025</span>
+                        <h3 class="text-xl font-bold text-white mb-2">Слідчі дії в «Нафтогазі»</h3>
+                        <p class="text-gray-400 text-sm">
+                            Детективи НАБУ провели обшуки у директора з безпеки «Нафтогазу». Розслідування стосується зловживань при закупівлі обладнання для газовидобутку. Вилучено документи та цифрові носії.
+                        </p>
+                    </div>
+
+                    <!-- Новина 4 -->
+                    <div class="timeline-item pl-8 relative fade-in delay-300">
+                        <span class="text-yellow-400 font-mono text-sm font-bold block mb-1">6 листопада 2025</span>
+                        <h3 class="text-xl font-bold text-white mb-2">Протести проти закону № 12414</h3>
+                        <p class="text-gray-400 text-sm">
+                            У Києві та Львові пройшли акції протесту проти законопроєкту № 12414, який громадськість розцінила як спробу влади обмежити незалежність САП через посилення контролю Генпрокурора. Активісти вимагають ветувати закон.
+                        </p>
+                    </div>
+
+                    <!-- Новина 5 -->
+                    <div class="timeline-item pl-8 relative fade-in delay-300">
+                        <span class="text-purple-400 font-mono text-sm font-bold block mb-1">20 жовтня 2025</span>
+                        <h3 class="text-xl font-bold text-white mb-2">Справа «Мідас»: нові підозри</h3>
+                        <p class="text-gray-400 text-sm">
+                            В рамках розслідування справи «Мідас» (щодо корупції на митниці) повідомлено про підозру ще трьом високопосадовцям регіональних митниць. Сума збитків оцінюється у 450 млн грн.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- КОНТАКТИ (Сторінка) -->
+            <section id="contacts" class="page-section hidden glass-panel p-8 md:p-12 rounded-2xl fade-in">
+                <button class="back-btn mb-8 text-emerald-400 hover:text-emerald-300 flex items-center gap-2 transition group">
+                    <span class="group-hover:-translate-x-1 transition">←</span> На головну
+                </button>
+                <h2 class="text-3xl font-black text-emerald-100 mb-8 border-b border-emerald-900/50 pb-4">
+                    📞 Контакти відповідальних органів
+                </h2>
+                <p class="text-gray-300 mb-8">Натисніть на номер телефону або пошту для миттєвого з'єднання.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- НАБУ -->
+                    <div class="bg-gray-900/60 p-6 rounded-xl border border-blue-600/30 hover:border-blue-500 transition duration-300 shadow-[0_0_15px_rgba(37,99,235,0.1)]">
+                        <h3 class="text-xl font-bold text-blue-400 mb-4 flex items-center gap-2">🛡️ НАБУ (Бюро)</h3>
+                        <div class="space-y-4">
+                            <a href="tel:0800213200" class="block bg-blue-900/20 p-3 rounded-lg hover:bg-blue-900/40 transition flex items-center gap-3">
+                                <span class="text-2xl">📞</span>
+                                <div>
+                                    <span class="text-xs text-gray-400 block uppercase">Спеціальна лінія</span>
+                                    <span class="text-white font-mono font-bold">0-800-213-200</span>
+                                </div>
+                            </a>
+                            <a href="mailto:press@nabu.gov.ua" class="block bg-blue-900/20 p-3 rounded-lg hover:bg-blue-900/40 transition flex items-center gap-3">
+                                <span class="text-2xl">📧</span>
+                                <div>
+                                    <span class="text-xs text-gray-400 block uppercase">Для преси/запитів</span>
+                                    <span class="text-white font-mono">press@nabu.gov.ua</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- САП -->
+                    <div class="bg-gray-900/60 p-6 rounded-xl border border-yellow-600/30 hover:border-yellow-500 transition duration-300 shadow-[0_0_15px_rgba(202,138,4,0.1)]">
+                        <h3 class="text-xl font-bold text-yellow-400 mb-4 flex items-center gap-2">⚖️ САП (Прокуратура)</h3>
+                        <div class="space-y-4">
+                            <a href="tel:+380442004954" class="block bg-yellow-900/20 p-3 rounded-lg hover:bg-yellow-900/40 transition flex items-center gap-3">
+                                <span class="text-2xl">📞</span>
+                                <div>
+                                    <span class="text-xs text-gray-400 block uppercase">Для медіа</span>
+                                    <span class="text-white font-mono font-bold">(044) 200-49-54</span>
+                                </div>
+                            </a>
+                            <a href="mailto:office@sap.gp.gov.ua" class="block bg-yellow-900/20 p-3 rounded-lg hover:bg-yellow-900/40 transition flex items-center gap-3">
+                                <span class="text-2xl">📧</span>
+                                <div>
+                                    <span class="text-xs text-gray-400 block uppercase">Офіційна пошта</span>
+                                    <span class="text-white font-mono">office@sap.gp.gov.ua</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- ВАКС -->
+                    <div class="bg-gray-900/60 p-6 rounded-xl border border-red-600/30 hover:border-red-500 transition duration-300 shadow-[0_0_15px_rgba(220,38,38,0.1)]">
+                        <h3 class="text-xl font-bold text-red-400 mb-4 flex items-center gap-2">🏛️ ВАКС (Суд)</h3>
+                        <div class="space-y-4">
+                            <a href="tel:+380442073546" class="block bg-red-900/20 p-3 rounded-lg hover:bg-red-900/40 transition flex items-center gap-3">
+                                <span class="text-2xl">📞</span>
+                                <div>
+                                    <span class="text-xs text-gray-400 block uppercase">Контакт-центр</span>
+                                    <span class="text-white font-mono font-bold">(044) 207-35-46</span>
+                                </div>
+                            </a>
+                            <a href="mailto:inbox@vaks.gov.ua" class="block bg-red-900/20 p-3 rounded-lg hover:bg-red-900/40 transition flex items-center gap-3">
+                                <span class="text-2xl">📧</span>
+                                <div>
+                                    <span class="text-xs text-gray-400 block uppercase">Канцелярія</span>
+                                    <span class="text-white font-mono">inbox@vaks.gov.ua</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- НАЗК -->
+                    <div class="bg-gray-900/60 p-6 rounded-xl border border-purple-600/30 hover:border-purple-500 transition duration-300 shadow-[0_0_15px_rgba(147,51,234,0.1)]">
+                        <h3 class="text-xl font-bold text-purple-400 mb-4 flex items-center gap-2">🔍 НАЗК (Запобігання)</h3>
+                        <div class="space-y-4">
+                            <a href="tel:+380442000691" class="block bg-purple-900/20 p-3 rounded-lg hover:bg-purple-900/40 transition flex items-center gap-3">
+                                <span class="text-2xl">🚨</span>
+                                <div>
+                                    <span class="text-xs text-gray-400 block uppercase font-bold text-red-400">Повідомити про корупцію</span>
+                                    <span class="text-white font-mono font-bold">+38(044) 200-06-91</span>
+                                </div>
+                            </a>
+                            <a href="mailto:anticor_reports@nazk.gov.ua" class="block bg-purple-900/20 p-3 rounded-lg hover:bg-purple-900/40 transition flex items-center gap-3">
+                                <span class="text-2xl">📧</span>
+                                <div>
+                                    <span class="text-xs text-gray-400 block uppercase">Для повідомлень</span>
+                                    <span class="text-white font-mono">anticor_reports@nazk.gov.ua</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
                 </div>
             </section>
 
@@ -489,75 +982,14 @@
         Керує показом та приховуванням секцій-сторінок
     -->
     <script>
-        // --- ✨ GEMINI API CONFIG ---
-        const apiKey = "AIzaSyDeHvW8PsmjkWTM_ahsEooy9KKGeLemzP0"; // Залишіть порожнім, Canvas надасть ключ
-        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+        // --- ПРОЖЕКТОР (КУРСОР) ---
+        const spotlight = document.getElementById('cursor-spotlight');
+        document.addEventListener('mousemove', (e) => {
+            spotlight.style.setProperty('--x', `${e.clientX}px`);
+            spotlight.style.setProperty('--y', `${e.clientY}px`);
+        });
 
-        /**
-         * ✨ Викликає Gemini API з експоненційною затримкою
-         * @param {string} prompt - Повний запит до моделі
-         * @param {number} retries - Кількість спроб
-         * @returns {Promise<string>} - Згенерований текст
-         */
-        async function callGemini(prompt, retries = 3) {
-            let attempt = 0;
-            while (attempt < retries) {
-                try {
-                    const payload = {
-                        contents: [{ parts: [{ text: prompt }] }],
-                    };
-
-                    const response = await fetch(apiUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
-
-                    const result = await response.json();
-                    
-                    if (result.candidates && result.candidates[0] && result.candidates[0].content.parts[0].text) {
-                        // Успішна відповідь
-                        return result.candidates[0].content.parts[0].text;
-                    } else {
-                        // Порожня або неочікувана відповідь
-                        console.warn("Gemini API response was empty or malformed:", result);
-                        throw new Error("No content received from Gemini.");
-                    }
-
-                } catch (error) {
-                    console.error(`Gemini API call attempt ${attempt + 1} failed:`, error);
-                    attempt++;
-                    if (attempt < retries) {
-                        const delay = Math.pow(2, attempt) * 1000; // 1s, 2s, 4s
-                        await new Promise(res => setTimeout(res, delay));
-                    } else {
-                        return "Помилка: Не вдалося згенерувати відповідь. Спробуйте, будь ласка, пізніше.";
-                    }
-                }
-            }
-            return "Помилка: Не вдалося згенерувати відповідь."; // Fallback
-        }
-
-        /**
-         * ✨ Форматує текст з Gemini, замінюючи \n на <br> та обробляючи Markdown
-         */
-        function formatGeminiResponse(text) {
-            // Замінюємо \n на <br> для нових рядків
-            let html = text.replace(/\n/g, '<br>');
-            // Проста обробка Markdown (жирний, заголовки)
-            html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>'); // **bold**
-            html = html.replace(/### (.*?)(<br>|$)/g, '<h4 class="text-xl font-bold mt-4 mb-2">$1</h4>'); // ### Header
-            html = html.replace(/## (.*?)(<br>|$)/g, '<h3 class="text-2xl font-bold mt-6 mb-2">$1</h3>'); // ## Header
-            return html;
-        }
-
-        // --- END GEMINI ---
-
-
+        // --- ЛОГІКА НАВІГАЦІЇ ---
         document.addEventListener('DOMContentLoaded', () => {
             // Знаходимо всі елементи, що є "сторінками"
             const pages = document.querySelectorAll('.page-section');
@@ -602,9 +1034,33 @@
             // За замовчуванням показуємо головну сторінку
             showPage('home');
 
-            // --- ✨ GEMINI EVENT LISTENERS ---
+            // --- ✨ GEMINI ЛОГІКА ---
+            const apiKey = "AIzaSyDeHvW8PsmjkWTM_ahsEooy9KKGeLemzP0"; // 
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
 
-            // 1. Обробник для кнопки "Пояснити 'Батіг і Пряник'"
+            async function callGemini(prompt) {
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+                    });
+                    const result = await response.json();
+                    return result.candidates[0].content.parts[0].text;
+                } catch (e) { 
+                    console.error(e);
+                    return "Помилка: не вдалося згенерувати відповідь. Спробуйте ще раз."; 
+                }
+            }
+
+            function formatGeminiResponse(text) {
+                let html = text.replace(/\n/g, '<br>');
+                html = html.replace(/\*\*(.*?)\*\*/g, '<strong class="text-white">$1</strong>');
+                html = html.replace(/### (.*?)(<br>|$)/g, '<h4 class="text-xl font-bold mt-6 mb-3 text-blue-200">$1</h4>');
+                html = html.replace(/## (.*?)(<br>|$)/g, '<h3 class="text-2xl font-bold mt-8 mb-4 text-blue-100">$1</h3>');
+                return html;
+            }
+
             const geminiMethodsBtn = document.getElementById('gemini-methods-btn');
             const geminiMethodsResult = document.getElementById('gemini-methods-result');
 
@@ -613,17 +1069,10 @@
                     geminiMethodsResult.classList.remove('hidden');
                     geminiMethodsResult.innerHTML = '<p class="text-yellow-300 animate-pulse">✨ Gemini думає... Будь ласка, зачекайте...</p>';
                     
-                    // Системний промпт (внутрішній, англійською для кращого розуміння моделлю)
                     const systemPrompt = `
-                        You are an expert on Ukrainian anti-corruption policy. 
-                        A user wants a simple explanation of the "Батіг і Пряник" (Carrot and Stick) concept.
-                        Use the provided context from the page:
-                        - "Батіг" (Stick) is about punishment: NABU (investigation), SAP (prosecution), VAKS (court), criminalization of illicit enrichment, confiscation.
-                        - "Пряник" (Carrot) is about prevention: Transparency (Prozorro, E-declarations), Digitalization (Diia portal), Deregulation.
-                        
-                        Respond IN UKRAINIAN. 
-                        Keep it simple, clear, and engaging. Start with a direct answer.
-                        Explain what "Батіг" is (punishment) and what "Пряник" (prevention) is, giving 1-2 examples for each.
+                        Ви — експерт з української антикорупційної політики та філолог.
+                        Користувач хоче просте пояснення концепції "батога і пряника" ("Carrot and Stick").
+                        Відповідайте українською мовою, дотримуючись правопису 2019 року.
                     `;
 
                     const responseText = await callGemini(systemPrompt);
@@ -631,7 +1080,6 @@
                 });
             }
 
-            // 2. Обробник для "Генератора Гіпотетичних Справ"
             const geminiCaseBtn = document.getElementById('gemini-case-btn');
             const geminiCaseResult = document.getElementById('gemini-case-result');
             const casePromptInput = document.getElementById('case-prompt');
@@ -646,32 +1094,11 @@
                     }
 
                     geminiCaseResult.classList.remove('hidden');
-                    geminiCaseResult.innerHTML = '<p class="text-yellow-300 animate-pulse">✨ Gemini створює справу... Це може зайняти до 30 секунд...</p>';
+                    geminiCaseResult.innerHTML = '<p class="text-yellow-300 animate-pulse">✨ Gemini створює справу...</p>';
 
                     const systemPrompt = `
-                        You are a legal analyst specializing in Ukrainian anti-corruption law. 
-                        Generate a detailed, realistic, but strictly hypothetical case study based on the user's prompt.
-                        The case study MUST be IN UKRAINIAN.
-                        
-                        User's prompt: "${userInput}"
-
-                        Structure the response as follows (use Markdown):
-                        
-                        ### Фабула Справи: [Назва на основі запиту]
-                        
-                        **1. Джерело інформації:** (Як дізналися? напр. заява викривача, аналітика НАЗК, журналістське розслідування)
-                        
-                        **2. Слідчий Орган:** (Хто розслідує? напр. детективи НАБУ)
-                        
-                        **3. Хід Розслідування:** (Що робили? напр. аналіз даних Prozorro, НСРД, обшуки, "агент під прикриттям")
-                        
-                        **4. Роль САП:** (Що робив прокурор? напр. процесуальне керівництво, погодження клопотань, вручення підозри)
-                        
-                        **5. Судовий Розгляд (ВАКС):** (Як йшов суд? напр. обрання запобіжного заходу, розгляд по суті)
-                        
-                        **6. Гіпотетичний Вирок:** (Чим закінчилося? напр. вирок, конфіскація)
-
-                        Make it sound professional, plausible, and directly related to the user's topic.
+                        Ви — юридичний аналітик. Згенеруйте детальну, реалістичну, але гіпотетичну фабулу справи на основі запиту: "${userInput}".
+                        Українською мовою, правопис 2019.
                     `;
 
                     const responseText = await callGemini(systemPrompt);
